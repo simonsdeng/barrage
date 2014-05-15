@@ -6,6 +6,12 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
+/**
+ * A human player
+ * 
+ * @author Simon Deng
+ * @author Nikhil Ghosh
+ */
 public class Player {
 
 	private Point loc;
@@ -16,6 +22,12 @@ public class Player {
 	private Point pointer;
 	private Image img;
 	
+	/**
+     * Creates a player at the specified location
+     * 
+     * @param x the x-coordinate of the player's location
+     * @param y the y-coordinate of the player's location
+     */
 	public Player(int x, int y) {
 		width = 100;
 		height = 100;
@@ -38,6 +50,9 @@ public class Player {
 	public void setDown(boolean b) { down = b; }
 	public void setPointer(Point p) { pointer = p; };
 	
+	/**
+	 * Moves the player 
+	 */
 	public void act() {
 		int dx = 0, dy = 0;
 		
@@ -58,6 +73,11 @@ public class Player {
 		if (loc.y + hh > Barrage.HEIGHT) loc.y = Barrage.HEIGHT - hh;
 	}
 	
+	/**
+	 * Draws the player
+	 * 
+	 * @param g the Graphics2D object to draw with
+	 */
 	public void draw(Graphics2D g) {
 		final double ang = Math.atan2(-(pointer.y - loc.y), pointer.x - loc.x) - Math.PI / 2;
 		

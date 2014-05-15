@@ -9,6 +9,12 @@ import java.awt.event.MouseMotionListener;
 
 import javax.swing.JFrame;
 
+/**
+ * The main game view of Barrage
+ * 
+ * @author Simon Deng
+ * @author Nikhil Ghosh
+ */
 @SuppressWarnings("serial")
 public class GamePanel extends ViewPanel implements Runnable {
 	
@@ -17,6 +23,13 @@ public class GamePanel extends ViewPanel implements Runnable {
 	private boolean running;
 	private Player player;
 	
+	/**
+	 * Creates a new GamePanel with the specified width and height
+	 * 
+	 * @param width the height of the GamePanel
+	 * @param height the width of the GamePanel
+	 * @param frame the parent JFrame
+	 */
 	public GamePanel(JFrame frame, int width, int height) {
 		super(frame, width, height);
 		setBackground(Color.WHITE);

@@ -3,6 +3,11 @@ import java.awt.Dimension;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
+/**
+ * A JPanel that can be swapped and automatically focused within its JFrame
+ * 
+ * @author Simon Deng
+ */
 public abstract class ViewPanel extends JPanel {
 	
 	private static final long serialVersionUID = 1L;
@@ -13,6 +18,9 @@ public abstract class ViewPanel extends JPanel {
 		setPreferredSize(new Dimension(width, height));
 	}
 	
+	/**
+	 * Adds panel to the frame and initializes it
+	 */
 	public void init() {
 		frame.setContentPane(this);
 		requestFocusInWindow();
@@ -28,6 +36,5 @@ public abstract class ViewPanel extends JPanel {
 	
 	protected abstract void start();
 	protected abstract void stop();
-	
 
 }
