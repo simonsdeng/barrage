@@ -33,5 +33,8 @@ public abstract class Defense extends Structure {
 	public int getHealth(){
 		return health;
 	}
+	
+	public abstract void draw(Graphics g);
+	
 
 }

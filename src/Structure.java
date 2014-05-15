@@ -33,5 +33,7 @@ public abstract class Structure {
 		this.yCoords = yCoords;
 	}
 	
+	public abstract void draw(Graphics g);
+	
 	public abstract void act();
 }
