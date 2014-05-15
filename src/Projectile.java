@@ -15,7 +15,7 @@ public abstract class Projectile {
 	private Image image;
 	
 	/**
-	 * Projetile must be given an intial position as well as direction, which should be a number on the closed interval [0, 2pi]. The image provided is the image shown on the projectile animation.
+	 * Projectile must be given an initial position as well as direction, which should be a number on the closed interval [0, 2pi]. The image provided is the image shown on the projectile animation.
 	 */
 	public Projectile(int x, int y, int direction, Image image){
 		this.x = x;
