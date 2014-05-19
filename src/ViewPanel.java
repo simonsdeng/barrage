@@ -24,7 +24,8 @@ public abstract class ViewPanel extends JPanel {
 	public void init() {
 		frame.setContentPane(this);
 		requestFocusInWindow();
-		frame.revalidate();
+		frame.invalidate();
+		frame.validate();
 		frame.pack();
 		start();
 	}
