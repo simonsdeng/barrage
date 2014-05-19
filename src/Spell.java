@@ -1,4 +1,5 @@
 
-public class Spell {
-
+public interface Spell {
+	
+	
 }

@@ -3,6 +3,7 @@ import java.awt.Image;
 
 
 public class Fireblast extends Projectile {
+	
 	private int level;
 	private int r;
 	
@@ -16,8 +17,12 @@ public class Fireblast extends Projectile {
 		return getX() >= r && getX() <= Barrage.WIDTH - r && getY() >= r && getY() <= Barrage.HEIGHT - r;
 	}
 	
+	public int getLevel() {
+		return level;
+	}
 	
-	
-	
+	public int getDamage() {
+		return level*5;
+	}
 
 }
