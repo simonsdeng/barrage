@@ -65,6 +65,11 @@ public class Player {
 		if (up) dy -= speed;
 		if (down) dy += speed;
 		
+		if (Math.abs(dx) > 0 && Math.abs(dy) > 0){
+			dx /= Math.sqrt(2);
+			dy /= Math.sqrt(2);
+		}
+		
 		loc.x += dx;
 		loc.y += dy;
 		
