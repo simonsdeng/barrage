@@ -86,13 +86,8 @@ public class Player {
 		final double ang = Math.atan2(-(pointer.y - loc.y), pointer.x - loc.x) ;
 
 		Fireblast fb = null;
-		try {
-			fb = new Fireblast(loc.x, loc.y, 20, 20, 1, -ang, ImageIO.read(new File("fireball.png")));
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		if(fb != null)
-			spells.add(fb);
+		fb = new Fireblast(loc.x + 5, loc.y - 70, 20, 20, 1, -ang);
+		spells.add(fb);
 	}
 	
 	/**

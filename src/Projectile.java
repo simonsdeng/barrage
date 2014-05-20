@@ -83,6 +83,10 @@ public abstract class Projectile {
 	public int getWidth() {
 		return width;
 	}
+	
+	public Image getImage() {
+		return image;
+	}
 
 	public void setHeight(int height) {
 		this.height = height;

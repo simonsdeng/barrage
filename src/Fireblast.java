@@ -1,12 +1,21 @@
+import java.awt.Graphics;
 import java.awt.Image;
+import java.io.File;
+
+import javax.imageio.ImageIO;
 
 public class Fireblast extends Projectile implements Spell {
 	
 	private int level;
 	private int r;
+	public static Image img = null;
+	static { try {
+			img = ImageIO.read(new File("fireball.png"));
+		}	catch (Exception e) { }
+	}
 	
-	public Fireblast(int x, int y, int height, int width, int level, double direction, Image image) {
-		super(x, y, height, width, direction, image);
+	public Fireblast(int x, int y, int height, int width, int level, double direction) {
+		super(x, y, height, width, direction, img);
 		this.level = level;
 		r = width/2;
 	}
@@ -22,5 +31,7 @@ public class Fireblast extends Projectile implements Spell {
 	public int getDamage() {
 		return level*5;
 	}
+	
+	
 
 }
