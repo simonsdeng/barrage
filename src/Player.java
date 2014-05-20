@@ -103,8 +103,9 @@ public class Player {
 	public void draw(Graphics2D g) {
 		final double ang = Math.atan2(-(pointer.y - loc.y), pointer.x - loc.x) - Math.PI / 2;
 		
+		
 		g.rotate(-ang, loc.x, loc.y);
-		g.drawImage(img, loc.x - width / 2, loc.y - height / 2, width, height, null);
+		g.drawImage(img, loc.x + 19 - width / 2, loc.y - 22 - height / 2, width, height, null);
 		g.rotate(ang, loc.x, loc.y);
 	}
 
