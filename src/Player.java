@@ -3,6 +3,7 @@ import java.awt.Image;
 import java.awt.Point;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
 
@@ -21,6 +22,7 @@ public class Player {
 	private boolean left, right, up, down;
 	private Point pointer;
 	private Image img;
+	private ArrayList<Spell> spells;
 	
 	/**
      * Creates a player at the specified location
@@ -35,6 +37,7 @@ public class Player {
 		speed = 10;
 		lives = 3;
 		pointer = new Point(x, y);
+		spells = new ArrayList<Spell>();
 		try {
 			img = ImageIO.read(new File("soldier.png"));
 		} catch (IOException e) {
@@ -43,6 +46,7 @@ public class Player {
 	}
 	
 	public Point getLocation() { return loc; }
+	public ArrayList<Spell> getSpells() { return spells; }
 	
 	public void setLeft(boolean b) { left = b; }
 	public void setRight(boolean b) { right = b; }
@@ -71,6 +75,24 @@ public class Player {
 		if (loc.y < hw) loc.y = hh;
 		if (loc.x + hw > Barrage.WIDTH) loc.x = Barrage.WIDTH - hw;
 		if (loc.y + hh > Barrage.HEIGHT) loc.y = Barrage.HEIGHT - hh;
+		
+		for(int i = 0; i < spells.size(); i++) {
+			if(!spells.get(i).isActive())
+				spells.remove(i);
+		}
+	}
+	
+	public void shootFireBlast() {
+		final double ang = Math.atan2(-(pointer.y - loc.y), pointer.x - loc.x) ;
+
+		Fireblast fb = null;
+		try {
+			fb = new Fireblast(loc.x, loc.y, 20, 20, 1, -ang, ImageIO.read(new File("fireball.png")));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		if(fb != null)
+			spells.add(fb);
 	}
 	
 	/**

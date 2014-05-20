@@ -1,8 +1,6 @@
 import java.awt.Image;
 
-
-
-public class Fireblast extends Projectile {
+public class Fireblast extends Projectile implements Spell {
 	
 	private int level;
 	private int r;
@@ -13,7 +11,7 @@ public class Fireblast extends Projectile {
 		r = width/2;
 	}
 	
-	public boolean isOnScreen() {
+	public boolean isActive() {
 		return getX() >= r && getX() <= Barrage.WIDTH - r && getY() >= r && getY() <= Barrage.HEIGHT - r;
 	}
 	

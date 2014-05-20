@@ -9,7 +9,7 @@ import java.awt.Image;
 public abstract class Projectile {
 
 	private int x, y;
-	private double velocity = 10;
+	private double velocity = 15;
 	private double theta;
 	
 	private int height, width;
@@ -41,7 +41,7 @@ public abstract class Projectile {
 	 * @param g The Graphics object to be used
 	 */
 	public void draw(Graphics g){
-		g.drawImage(image, width, height, null);
+		g.drawImage(image, x, y, width, height, null);
 	}
 	
 	public double getVelocity(){
