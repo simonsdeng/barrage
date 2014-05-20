@@ -39,7 +39,7 @@ public class Player {
 		pointer = new Point(x, y);
 		spells = new ArrayList<Spell>();
 		try {
-			img = ImageIO.read(new File("soldier.png"));
+			img = ImageIO.read(new File("wizard.png"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
