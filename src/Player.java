@@ -87,10 +87,10 @@ public class Player extends Entity {
 	}
 	
 	public void shootFireBlast() {
-		final double ang = Math.atan2(-(pointer.y - y), pointer.x - x) ;
-
+		final double ang = Math.atan2(-(pointer.y - y), pointer.x - x)  - Math.PI / 2;
+		double cos = Math.cos(ang), sin = Math.sin(ang);
 		Fireblast fb = null;
-		fb = new Fireblast(x + 5, y - 70, 20, 20, 1, -ang);
+		fb = new Fireblast((int)(x + 5*cos - 70*sin),(int)(y - 70*cos - 5*sin), 20, 20, 1, -Math.PI / 2 - ang);
 		spells.add(fb);
 	}
 	
