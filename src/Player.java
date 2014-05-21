@@ -12,9 +12,8 @@ import javax.imageio.ImageIO;
  * @author Simon Deng
  * @author Nikhil Ghosh
  */
-public class Player {
+public class Player extends Entity {
 
-	private Point loc;
 	private int width, height;
 	private int speed;
 	private int lives;
@@ -29,9 +28,9 @@ public class Player {
      * @param y the y-coordinate of the player's location
      */
 	public Player(int x, int y) {
+		super (x, y);
 		width = 100;
 		height = 100;
-		loc = new Point(x, y);
 		speed = 10;
 		lives = 3;
 		pointer = new Point(x, y);
@@ -42,8 +41,6 @@ public class Player {
 		}
 	}
 	
-	public Point getLocation() { return loc; }
-	
 	public void setLeft(boolean b) { left = b; }
 	public void setRight(boolean b) { right = b; }
 	public void setUp(boolean b) { up = b; }
@@ -53,6 +50,7 @@ public class Player {
 	/**
 	 * Moves the player 
 	 */
+	@Override
 	public void act() {
 		int dx = 0, dy = 0;
 		
@@ -61,16 +59,16 @@ public class Player {
 		if (up) dy -= speed;
 		if (down) dy += speed;
 		
-		loc.x += dx;
-		loc.y += dy;
+		x += dx;
+		y += dy;
 		
 		final int hw = width / 2;
 		final int hh = height / 2;
 		
-		if (loc.x < hh) loc.x = hw;
-		if (loc.y < hw) loc.y = hh;
-		if (loc.x + hw > Barrage.WIDTH) loc.x = Barrage.WIDTH - hw;
-		if (loc.y + hh > Barrage.HEIGHT) loc.y = Barrage.HEIGHT - hh;
+		if (x < hh) x = hw;
+		if (y < hw) y = hh;
+		if (x + hw > Barrage.WIDTH) x = Barrage.WIDTH - hw;
+		if (y + hh > Barrage.HEIGHT) y = Barrage.HEIGHT - hh;
 	}
 	
 	/**
@@ -78,12 +76,13 @@ public class Player {
 	 * 
 	 * @param g the Graphics2D object to draw with
 	 */
+	@Override
 	public void draw(Graphics2D g) {
-		final double ang = Math.atan2(-(pointer.y - loc.y), pointer.x - loc.x) - Math.PI / 2;
+		final double ang = Math.atan2(-(pointer.y - y), pointer.x - x) - Math.PI / 2;
 		
-		g.rotate(-ang, loc.x, loc.y);
-		g.drawImage(img, loc.x - width / 2, loc.y - height / 2, width, height, null);
-		g.rotate(ang, loc.x, loc.y);
+		g.rotate(-ang, x, y);
+		g.drawImage(img, x - width / 2, y - height / 2, width, height, null);
+		g.rotate(ang, x, y);
 	}
 
 }

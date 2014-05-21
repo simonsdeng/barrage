@@ -1,7 +1,5 @@
 import java.awt.Image;
 
-
-
 public class Fireblast extends Projectile {
 	
 	private int level;
