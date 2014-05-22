@@ -12,8 +12,8 @@ public class ArcherTower extends Defense {
 	
 	private ArrayList<Projectile> projectiles;
 
-	public ArcherTower(int x, int y, ArrayList<Enemy> enemies) {
-		super(x, y, ArcherTower.icon);
+	public ArcherTower(int gridX, int gridY, ArrayList<Enemy> enemies) {
+		super(gridX, gridY, ArcherTower.icon);
 		this.enemies = enemies;
 		projectiles = new ArrayList<Projectile>();
 	}
