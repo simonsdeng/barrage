@@ -7,6 +7,7 @@ public class Fireblast extends Projectile {
 	
 	public Fireblast(int x, int y, int height, int width, int level, double direction, Image image) {
 		super(x, y, height, width, direction, image);
+		setShooter(this);
 		this.level = level;
 		r = width/2;
 	}

@@ -11,6 +11,8 @@ public abstract class Projectile extends Entity {
 	protected double velocity = 10;
 	protected double theta;
 	
+	protected Entity shooter;
+	
 	protected int height, width;
 	
 	private Image image;
@@ -24,6 +26,15 @@ public abstract class Projectile extends Entity {
 		this.height = height;
 		theta = direction;
 		this.image = image;
+	}
+	
+	public void setShooter(Entity shooter){
+		this.shooter = shooter;
+	}
+	
+	//Implement this Method
+	public boolean isActive(){
+		return false; 
 	}
 	
 	/**
