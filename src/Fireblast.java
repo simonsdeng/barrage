@@ -34,7 +34,7 @@ public class Fireblast extends Projectile implements Spell {
 
 	@Override
 	public void draw(Graphics2D g) {
-		
+		g.drawImage(img, getX(), getY(), width, height, null);
 	}
 	
 	

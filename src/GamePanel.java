@@ -49,7 +49,7 @@ public class GamePanel extends ViewPanel implements Runnable {
 
 	private void update() {
 		player.act();
-		for(Spell s : player.getSpells())
+		for(Projectile s : player.getSpells())
 			s.act();
 	}
 
@@ -60,8 +60,8 @@ public class GamePanel extends ViewPanel implements Runnable {
 		if (running) {
 			Graphics2D g2d = (Graphics2D) g;
 			player.draw(g2d);
-//			for(Spell s : player.getSpells())
-//				s.draw(g2d);
+			for(Projectile s : player.getSpells())
+				s.draw(g2d);
 		}
 	}
 
