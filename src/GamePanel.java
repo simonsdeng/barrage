@@ -134,11 +134,13 @@ public class GamePanel extends ViewPanel implements Runnable {
 	
 		@Override
 		public void mouseClicked(MouseEvent e) {
-			player.shootFireBlast();
+
 		}
 	
 		@Override
-		public void mousePressed(MouseEvent e) {}
+		public void mousePressed(MouseEvent e) {
+			player.shootFireBlast();
+		}
 	
 		@Override
 		public void mouseReleased(MouseEvent e) {}
