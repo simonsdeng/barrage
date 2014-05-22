@@ -19,7 +19,7 @@ import javax.swing.JFrame;
  */
 @SuppressWarnings("serial")
 public class GamePanel extends ViewPanel implements Runnable {
-	
+
 	private static final int FPS = 30;
 	
 	private boolean running;
@@ -79,14 +79,13 @@ public class GamePanel extends ViewPanel implements Runnable {
 		defenses.remove(defense);
 		grid.remove(defense);
 	}
-
+	
 	private void update() {
 		player.act();
-		for(Projectile s : player.getSpells())
-			s.act();
+		for (Projectile p : player.getProjectiles()) p.act();
 		grid.updateEntities();
 	}
-
+	
 	@Override
 	protected void paintComponent(Graphics g) {
 		super.paintComponent(g);
@@ -94,11 +93,10 @@ public class GamePanel extends ViewPanel implements Runnable {
 		if (running) {
 			Graphics2D g2d = (Graphics2D) g;
 			player.draw(g2d);
-			for(Projectile s : player.getSpells())
-				s.draw(g2d);
+			for (Projectile p : player.getProjectiles()) p.draw(g2d);
 		}
 	}
-
+	
 	@Override
 	public void run() {
 		final long targetTime = 1000 / FPS;
@@ -120,7 +118,7 @@ public class GamePanel extends ViewPanel implements Runnable {
 			}
 		}
 	}
-
+	
 	@Override
 	protected void stop() {
 		running = false;
@@ -144,7 +142,7 @@ public class GamePanel extends ViewPanel implements Runnable {
 				break;
 			}
 		}
-	
+		
 		@Override
 		public void keyReleased(KeyEvent e) {
 			switch (e.getKeyCode()) {
@@ -162,34 +160,36 @@ public class GamePanel extends ViewPanel implements Runnable {
 				break;
 			}
 		}
-	
+		
 		@Override
 		public void keyTyped(KeyEvent e) {}
-	
+		
 		@Override
-		public void mouseClicked(MouseEvent e) {
-
-		}
-	
+		public void mouseClicked(MouseEvent e) {}
+		
 		@Override
 		public void mousePressed(MouseEvent e) {
-			player.shootFireBlast();
+			double ang = Math.atan2(-(e.getY()- player.getY()), e.getX() - player.getX())  - Math.PI / 2;
+			double cos = Math.cos(ang), sin = Math.sin(ang);
+			Fireblast fb = null;
+			fb = new Fireblast((int)(player.getX() + 5*cos - 70*sin),(int)(player.getY() - 70*cos - 5*sin), 20, 20, 1, -Math.PI / 2 - ang);
+			player.castSpell(fb);
 		}
-	
+		
 		@Override
 		public void mouseReleased(MouseEvent e) {}
-	
+		
 		@Override
 		public void mouseEntered(MouseEvent e) {}
-	
+		
 		@Override
 		public void mouseExited(MouseEvent e) {}
-
+		
 		@Override
 		public void mouseDragged(MouseEvent e) {
 			player.setPointer(e.getPoint());
 		}
-
+		
 		@Override
 		public void mouseMoved(MouseEvent e) {
 			player.setPointer(e.getPoint());
