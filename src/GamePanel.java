@@ -6,6 +6,8 @@ import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.JFrame;
 
@@ -21,7 +23,11 @@ public class GamePanel extends ViewPanel implements Runnable {
 	private static final int FPS = 30;
 	
 	private boolean running;
+	private Grid grid;
 	private Player player;
+	private Nexus nexus;
+	private List<Enemy> enemies;
+	private List<Defense> defenses;
 	
 	/**
 	 * Creates a new GamePanel with the specified width and height
@@ -37,7 +43,14 @@ public class GamePanel extends ViewPanel implements Runnable {
 	
 	@Override
 	protected void start() {
+		grid = new Grid();
 		player = new Player(Barrage.WIDTH / 2, Barrage.HEIGHT / 2);
+		nexus = new Nexus(Grid.COLS / 2, Grid.ROWS / 2);
+		enemies = new ArrayList<Enemy>();
+		defenses = new ArrayList<Defense>();
+		
+		grid.add(player);
+		grid.add(nexus);
 		
 		final GameListener listener = new GameListener();
 		addKeyListener(listener);
@@ -46,11 +59,32 @@ public class GamePanel extends ViewPanel implements Runnable {
 		
 		new Thread(this).start();
 	}
+	
+	private void add(Enemy enemy) {
+		enemies.add(enemy);
+		grid.add(enemy);
+	}
+	
+	private void add(Defense defense) {
+		defenses.add(defense);
+		grid.add(defense);
+	}
+	
+	private void remove(Enemy enemy) {
+		enemies.remove(enemy);
+		grid.remove(enemy);
+	}
+	
+	private void remove(Defense defense) {
+		defenses.remove(defense);
+		grid.remove(defense);
+	}
 
 	private void update() {
 		player.act();
 		for(Projectile s : player.getSpells())
 			s.act();
+		grid.updateEntities();
 	}
 
 	@Override

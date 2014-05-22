@@ -1,12 +1,10 @@
-import java.awt.Image;
-
 public abstract class Defense extends Structure {
 
 	protected int health;
 	protected int cost;
 
-	public Defense(int x, int y, Image icon) {
-		super(x, y, icon);
+	public Defense(int x, int y) {
+		super(x, y);
 	}
 	
 	public int getCost() {
