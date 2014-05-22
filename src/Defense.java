@@ -7,9 +7,9 @@ public abstract class Defense extends Structure {
 	protected int cost;
 	protected int range;
 	
-
 	public Defense(int x, int y) {
 		super(x, y);
+		range = 5 * Grid.CELL_SIZE;
 	}
 	
 	public void setRange(int range){
@@ -35,7 +35,6 @@ public abstract class Defense extends Structure {
 	public int getHealth() {
 		return health;
 	}
-
 	
 	public ArrayList<Enemy> getEnemiesInProximity(ArrayList<Enemy> enemies){
 		ArrayList<Enemy> close = new ArrayList<Enemy>();
