@@ -8,7 +8,7 @@ import java.awt.Image;
  */
 public abstract class Projectile extends Entity {
 
-	protected double velocity = 15;
+	protected double velocity = 10;
 	protected double theta;
 	
 	protected Entity shooter;

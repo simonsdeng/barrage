@@ -33,7 +33,7 @@ public class Player extends Entity {
 		super (x, y);
 		width = 100;
 		height = 100;
-		speed = 10;
+		speed = 7;
 		lives = 3;
 		pointer = new Point(x, y);
 		spells = new ArrayList<Projectile>();
