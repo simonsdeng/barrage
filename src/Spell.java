@@ -1,8 +1,7 @@
-import java.awt.Graphics;
 
 public interface Spell {
 	
-	public void cast(Entity e);
+	public void cast();
+	public int getCost();
 
-	
 }

@@ -1,4 +1,3 @@
-import java.awt.Graphics2D;
 import java.awt.Image;
 import java.io.File;
 
@@ -8,7 +7,9 @@ public class Fireblast extends Projectile implements Spell {
 	
 	private int level;
 	private int r;
-	private Entity entity;
+	private int cost;
+	private static long time = 0;
+	private static int delayTime = 150;
 
 	
 	public static Image img = null;
@@ -17,16 +18,22 @@ public class Fireblast extends Projectile implements Spell {
 		}	catch (Exception e) { }
 	}
 	
-	public Fireblast(int x, int y, int height, int width, int level, double direction) {
-		super(x, y, height, width, direction, img);
+	public Fireblast(int x, int y, int height, int width, int level, double direction, Entity entity) {
+		super(x, y, height, width, direction, entity, img);
 		this.level = level;
 		r = width/2;
+		cost = 10;
 	}
 	
-	public void cast(Entity e) {
-		entity = e;
-		e.addProjectile(this);
+	public int getCost() { return cost; }
+	
+	public void cast() {
+		if(System.currentTimeMillis() - time >= delayTime) {
+			entity.addProjectile(this);
+			time = System.currentTimeMillis();
+		}
 	}
+
 	
 	public boolean isOnScreen() {
 		return getX() >= r && getX() <= Barrage.WIDTH - r && getY() >= r && getY() <= Barrage.HEIGHT - r;

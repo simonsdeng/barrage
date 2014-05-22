@@ -14,16 +14,18 @@ public abstract class Projectile extends Entity {
 	protected int height, width;
 	
 	private Image image;
+	protected Entity entity;
 	
 	/**
 	 * Projectile must be given an initial position as well as direction, which should be a number on the closed interval [0, 2pi]. The image provided is the image shown on the projectile animation.
 	 */
-	public Projectile(int x, int y,int height, int width, double direction, Image image) {
+	public Projectile(int x, int y,int height, int width, double direction, Entity entity, Image image) {
 		super(x, y);
 		this.width = width;
 		this.height = height;
 		theta = direction;
 		this.image = image;
+		this.entity = entity;
 	}
 	
 	/**

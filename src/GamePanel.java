@@ -137,7 +137,7 @@ public class GamePanel extends ViewPanel implements Runnable {
 			double ang = Math.atan2(-(e.getY()- player.getY()), e.getX() - player.getX())  - Math.PI / 2;
 			double cos = Math.cos(ang), sin = Math.sin(ang);
 			Fireblast fb = null;
-			fb = new Fireblast((int)(player.getX() + 5*cos - 70*sin),(int)(player.getY() - 70*cos - 5*sin), 20, 20, 1, -Math.PI / 2 - ang);
+			fb = new Fireblast((int)(player.getX() + 5*cos - 70*sin),(int)(player.getY() - 70*cos - 5*sin), 20, 20, 1, -Math.PI / 2 - ang, player);
 			player.castSpell(fb);
 			
 		}

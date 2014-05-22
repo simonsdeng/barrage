@@ -3,7 +3,6 @@ import java.awt.Image;
 import java.awt.Point;
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
 
@@ -18,6 +17,7 @@ public class Player extends Entity {
 	private int width, height;
 	private int speed;
 	private int lives;
+	private int mana;
 	private boolean left, right, up, down;
 	private Point pointer;
 	private Image img;
@@ -34,6 +34,7 @@ public class Player extends Entity {
 		height = 100;
 		speed = 10;
 		lives = 3;
+		mana = 100;
 		pointer = new Point(x, y);
 
 		try {
@@ -50,6 +51,9 @@ public class Player extends Entity {
 	public void setUp(boolean b) { up = b; }
 	public void setDown(boolean b) { down = b; }
 	public void setPointer(Point p) { pointer = p; };
+	
+	
+	public int getMana() { return mana; }
 	
 	/**
 	 * Moves the player 
@@ -83,8 +87,12 @@ public class Player extends Entity {
 	}
 	
 	public void castSpell(Spell s) {
-		s.cast(this);
+		if(mana - s.getCost() >= 0) {
+			s.cast();
+			mana -= s.getCost();
+		}
 	}
+	
 	
 	/**
 	 * Draws the player
