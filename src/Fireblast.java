@@ -8,6 +8,9 @@ public class Fireblast extends Projectile implements Spell {
 	
 	private int level;
 	private int r;
+	private Entity entity;
+
+	
 	public static Image img = null;
 	static { try {
 			img = ImageIO.read(new File("fireball.png"));
@@ -20,7 +23,12 @@ public class Fireblast extends Projectile implements Spell {
 		r = width/2;
 	}
 	
-	public boolean isActive() {
+	public void cast(Entity e) {
+		entity = e;
+		e.addProjectile(this);
+	}
+	
+	public boolean isOnScreen() {
 		return getX() >= r && getX() <= Barrage.WIDTH - r && getY() >= r && getY() <= Barrage.HEIGHT - r;
 	}
 	
@@ -31,12 +39,14 @@ public class Fireblast extends Projectile implements Spell {
 	public int getDamage() {
 		return level*5;
 	}
-
-	@Override
-	public void draw(Graphics2D g) {
-		g.drawImage(img, getX(), getY(), width, height, null);
-	}
 	
+	@Override
+	public void act() {
+		super.act();
+		if(!isOnScreen())
+			entity.removeProjectile(this);
+	}
+
 	
 
 }

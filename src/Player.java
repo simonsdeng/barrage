@@ -21,7 +21,6 @@ public class Player extends Entity {
 	private boolean left, right, up, down;
 	private Point pointer;
 	private Image img;
-	private ArrayList<Projectile> spells;
 	
 	/**
      * Creates a player at the specified location
@@ -36,7 +35,7 @@ public class Player extends Entity {
 		speed = 10;
 		lives = 3;
 		pointer = new Point(x, y);
-		spells = new ArrayList<Projectile>();
+
 		try {
 			img = ImageIO.read(new File("wizard.png"));
 		} catch (IOException e) {
@@ -44,7 +43,7 @@ public class Player extends Entity {
 		}
 	}
 	
-	public ArrayList<Projectile> getSpells() { return spells; }
+
 	
 	public void setLeft(boolean b) { left = b; }
 	public void setRight(boolean b) { right = b; }
@@ -83,12 +82,8 @@ public class Player extends Entity {
 		
 	}
 	
-	public void shootFireBlast() {
-		final double ang = Math.atan2(-(pointer.y - y), pointer.x - x)  - Math.PI / 2;
-		double cos = Math.cos(ang), sin = Math.sin(ang);
-		Fireblast fb = null;
-		fb = new Fireblast((int)(x + 5*cos - 70*sin),(int)(y - 70*cos - 5*sin), 20, 20, 1, -Math.PI / 2 - ang);
-		spells.add(fb);
+	public void castSpell(Spell s) {
+		s.cast(this);
 	}
 	
 	/**

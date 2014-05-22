@@ -49,8 +49,8 @@ public class GamePanel extends ViewPanel implements Runnable {
 
 	private void update() {
 		player.act();
-		for(Projectile s : player.getSpells())
-			s.act();
+		for(Projectile p : player.getProjectiles())
+			p.act();
 	}
 
 	@Override
@@ -60,8 +60,8 @@ public class GamePanel extends ViewPanel implements Runnable {
 		if (running) {
 			Graphics2D g2d = (Graphics2D) g;
 			player.draw(g2d);
-			for(Projectile s : player.getSpells())
-				s.draw(g2d);
+			for(Projectile p : player.getProjectiles())
+				p.draw(g2d);		
 		}
 	}
 
@@ -134,7 +134,12 @@ public class GamePanel extends ViewPanel implements Runnable {
 	
 		@Override
 		public void mouseClicked(MouseEvent e) {
-			player.shootFireBlast();
+			double ang = Math.atan2(-(e.getY()- player.getY()), e.getX() - player.getX())  - Math.PI / 2;
+			double cos = Math.cos(ang), sin = Math.sin(ang);
+			Fireblast fb = null;
+			fb = new Fireblast((int)(player.getX() + 5*cos - 70*sin),(int)(player.getY() - 70*cos - 5*sin), 20, 20, 1, -Math.PI / 2 - ang);
+			player.castSpell(fb);
+			
 		}
 	
 		@Override
