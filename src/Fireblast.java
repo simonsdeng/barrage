@@ -16,6 +16,7 @@ public class Fireblast extends Projectile implements Spell {
 	
 	public Fireblast(int x, int y, int height, int width, int level, double direction) {
 		super(x, y, height, width, direction, img);
+		setShooter(this);
 		this.level = level;
 		r = width/2;
 	}
