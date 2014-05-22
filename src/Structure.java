@@ -7,6 +7,8 @@ import java.awt.Image;
  */
 public abstract class Structure extends Entity {
 
+	public static int GRID_SIZE = 20;
+	
 	protected int gridX;
 	protected int gridY;
 	protected Image img;
@@ -18,7 +20,7 @@ public abstract class Structure extends Entity {
 	 * @param img image that defines appearance of the structure
 	 */
 	public Structure(int gridX, int gridY, Image img) {
-		super((2 * gridX + 1) * Grid.SIZE / 2, (2 * gridY + 1) * Grid.SIZE / 2);
+		super((2 * gridX + 1) * GRID_SIZE / 2, (2 * gridY + 1) * GRID_SIZE / 2);
 		this.gridX = gridX;
 		this.gridY = gridY;
 	}

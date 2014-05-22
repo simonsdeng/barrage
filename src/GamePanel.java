@@ -49,6 +49,8 @@ public class GamePanel extends ViewPanel implements Runnable {
 
 	private void update() {
 		player.act();
+		for(Spell s : player.getSpells())
+			s.act();
 	}
 
 	@Override
@@ -58,6 +60,8 @@ public class GamePanel extends ViewPanel implements Runnable {
 		if (running) {
 			Graphics2D g2d = (Graphics2D) g;
 			player.draw(g2d);
+//			for(Spell s : player.getSpells())
+//				s.draw(g2d);
 		}
 	}
 
@@ -129,7 +133,9 @@ public class GamePanel extends ViewPanel implements Runnable {
 		public void keyTyped(KeyEvent e) {}
 	
 		@Override
-		public void mouseClicked(MouseEvent e) {}
+		public void mouseClicked(MouseEvent e) {
+			player.shootFireBlast();
+		}
 	
 		@Override
 		public void mousePressed(MouseEvent e) {}

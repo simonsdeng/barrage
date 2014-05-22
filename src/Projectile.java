@@ -8,7 +8,7 @@ import java.awt.Image;
  */
 public abstract class Projectile extends Entity {
 
-	protected double velocity = 10;
+	protected double velocity = 15;
 	protected double theta;
 	
 	protected int height, width;
@@ -38,8 +38,9 @@ public abstract class Projectile extends Entity {
 	 * Draws the projectile onto the screen
 	 * @param g The Graphics object to be used
 	 */
+	@Override
 	public void draw(Graphics2D g) {
-		g.drawImage(image, width, height, null);
+		g.drawImage(image, x, y, width, height, null);
 	}
 
 }

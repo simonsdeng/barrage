@@ -3,6 +3,7 @@ import java.awt.Image;
 import java.awt.Point;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
 
@@ -20,6 +21,7 @@ public class Player extends Entity {
 	private boolean left, right, up, down;
 	private Point pointer;
 	private Image img;
+	private ArrayList<Spell> spells;
 	
 	/**
      * Creates a player at the specified location
@@ -34,12 +36,15 @@ public class Player extends Entity {
 		speed = 10;
 		lives = 3;
 		pointer = new Point(x, y);
+		spells = new ArrayList<Spell>();
 		try {
-			img = ImageIO.read(new File("soldier.png"));
+			img = ImageIO.read(new File("wizard.png"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
+	
+	public ArrayList<Spell> getSpells() { return spells; }
 	
 	public void setLeft(boolean b) { left = b; }
 	public void setRight(boolean b) { right = b; }
@@ -59,6 +64,11 @@ public class Player extends Entity {
 		if (up) dy -= speed;
 		if (down) dy += speed;
 		
+		if (Math.abs(dx) > 0 && Math.abs(dy) > 0){
+			dx /= Math.sqrt(2);
+			dy /= Math.sqrt(2);
+		}
+		
 		x += dx;
 		y += dy;
 		
@@ -69,6 +79,19 @@ public class Player extends Entity {
 		if (y < hw) y = hh;
 		if (x + hw > Barrage.WIDTH) x = Barrage.WIDTH - hw;
 		if (y + hh > Barrage.HEIGHT) y = Barrage.HEIGHT - hh;
+		
+		for(int i = 0; i < spells.size(); i++) {
+			if(!spells.get(i).isActive())
+				spells.remove(i);
+		}
+	}
+	
+	public void shootFireBlast() {
+		final double ang = Math.atan2(-(pointer.y - y), pointer.x - x) ;
+
+		Fireblast fb = null;
+		fb = new Fireblast(x + 5, y - 70, 20, 20, 1, -ang);
+		spells.add(fb);
 	}
 	
 	/**
@@ -81,7 +104,7 @@ public class Player extends Entity {
 		final double ang = Math.atan2(-(pointer.y - y), pointer.x - x) - Math.PI / 2;
 		
 		g.rotate(-ang, x, y);
-		g.drawImage(img, x - width / 2, y - height / 2, width, height, null);
+		g.drawImage(img, x + 19 - width / 2, y - 22 - height / 2, width, height, null);
 		g.rotate(ang, x, y);
 	}
 
