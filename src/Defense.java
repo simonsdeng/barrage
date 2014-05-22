@@ -11,6 +11,7 @@ public abstract class Defense extends Structure {
 
 	public Defense(int x, int y, Image icon) {
 		super(x, y, icon);
+		range = 5 * Structure.GRID_SIZE;
 	}
 	
 	public void setRange(int range){
