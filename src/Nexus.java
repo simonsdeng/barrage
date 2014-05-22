@@ -1,10 +1,9 @@
 import java.awt.Graphics2D;
-import java.awt.Image;
 
 public class Nexus extends Structure {
 
-	public Nexus(int x, int y, Image img) {
-		super(x, y, img);
+	public Nexus(int gridX, int gridY) {
+		super(gridX, gridY);
 	}
 
 	@Override

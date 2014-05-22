@@ -13,14 +13,14 @@ public class ArcherTower extends Defense {
 	private ArrayList<Projectile> projectiles;
 
 	public ArcherTower(int gridX, int gridY, ArrayList<Enemy> enemies) {
-		super(gridX, gridY, ArcherTower.icon);
+		super(gridX, gridY);
 		this.enemies = enemies;
 		projectiles = new ArrayList<Projectile>();
 	}
 
 	@Override
 	public void draw(Graphics2D g) {
-		g.drawImage(icon, x, y, Structure.GRID_SIZE, Structure.GRID_SIZE, null);
+		g.drawImage(icon, x, y, Grid.CELL_SIZE, Grid.CELL_SIZE, null);
 		
 	}
 

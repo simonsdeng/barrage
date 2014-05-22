@@ -1,4 +1,3 @@
-import java.awt.Image;
 import java.awt.Point;
 import java.util.ArrayList;
 
@@ -9,8 +8,8 @@ public abstract class Defense extends Structure {
 	protected int range;
 	
 
-	public Defense(int x, int y, Image icon) {
-		super(x, y, icon);
+	public Defense(int x, int y) {
+		super(x, y);
 	}
 	
 	public void setRange(int range){

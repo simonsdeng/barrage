@@ -12,8 +12,6 @@ public abstract class Structure extends Entity {
 	protected int gridY;
 	protected Image img;
 
-	public final static int GRID_SIZE = 20;
-
 	/**
 	 * 
 	 * @param x
@@ -23,8 +21,8 @@ public abstract class Structure extends Entity {
 	 * @param img
 	 *            image that defines appearance of the structure
 	 */
-	public Structure(int gridX, int gridY, Image img) {
-		super((2 * gridX + 1) * GRID_SIZE / 2, (2 * gridY + 1) * GRID_SIZE / 2);
+	public Structure(int gridX, int gridY) {
+		super((2 * gridX + 1) * Grid.CELL_SIZE / 2, (2 * gridY + 1) * Grid.CELL_SIZE / 2);
 		this.gridX = gridX;
 		this.gridY = gridY;
 	}
@@ -41,4 +39,3 @@ public abstract class Structure extends Entity {
 		return Math.tan((y - getY())/ (x - getX()));
 	}
 }
-
