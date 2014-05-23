@@ -22,6 +22,8 @@ public class Player extends Entity {
 	private Point pointer;
 	private Image img;
 	
+	public static final int MANA_REGEN = 1;
+	
 	/**
      * Creates a player at the specified location
      * 
@@ -60,6 +62,8 @@ public class Player extends Entity {
 	 */
 	@Override
 	public void act() {
+		if (mana < 100)
+			mana += MANA_REGEN;
 		int dx = 0, dy = 0;
 		
 		if (left) dx -= speed;
