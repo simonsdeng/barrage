@@ -22,7 +22,7 @@ public class Fireblast extends Projectile implements Spell {
 		super(x, y, height, width, direction, entity, img);
 		this.level = level;
 		r = width/2;
-		cost = 10;
+		cost = 0;
 	}
 	
 	public int getCost() { return cost; }
