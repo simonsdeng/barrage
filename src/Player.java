@@ -21,6 +21,7 @@ public class Player extends Entity {
 	private boolean left, right, up, down;
 	private Point pointer;
 	private Image img;
+	private Fireblast fb;
 	
 	public static final int MANA_REGEN = 1;
 	
@@ -38,6 +39,7 @@ public class Player extends Entity {
 		lives = 3;
 		mana = 100;
 		pointer = new Point(x, y);
+		fb = new Fireblast(this);
 
 		try {
 			img = ImageIO.read(new File("wizard.png"));
@@ -56,6 +58,9 @@ public class Player extends Entity {
 	
 	
 	public int getMana() { return mana; }
+	public Point getPointer() { return pointer; }
+	public int getLives() { return lives; }
+	public Fireblast getFireblast() { return fb; };
 	
 	/**
 	 * Moves the player 
@@ -106,7 +111,6 @@ public class Player extends Entity {
 	@Override
 	public void draw(Graphics2D g) {
 		final double ang = Math.atan2(-(pointer.y - y), pointer.x - x) - Math.PI / 2;
-		
 		g.rotate(-ang, x, y);
 		g.drawImage(img, x + 19 - width / 2, y - 22 - height / 2, width, height, null);
 		g.rotate(ang, x, y);

@@ -1,27 +1,19 @@
 import java.awt.Image;
-import java.io.File;
+import java.awt.Point;
 
-import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
 
-public class Fireblast extends Projectile implements Spell {
+public class Fireblast implements Spell {
 	
-	private int level;
-	private int r;
 	private int cost;
 	private static long time = 0;
 	private static int delayTime = 150;
-
+	private Player player;
 	
-	public static Image img = null;
-	static { try {
-			img = ImageIO.read(new File("fireball.png"));
-		}	catch (Exception e) { }
-	}
+	public static Image img = new ImageIcon("fireball.png").getImage();
 	
-	public Fireblast(int x, int y, int height, int width, int level, double direction, Entity entity) {
-		super(x, y, height, width, direction, entity, img);
-		this.level = level;
-		r = width/2;
+	public Fireblast(Player p) {
+		player = p;
 		cost = 0;
 	}
 	
@@ -29,29 +21,35 @@ public class Fireblast extends Projectile implements Spell {
 	
 	public void cast() {
 		if(System.currentTimeMillis() - time >= delayTime) {
-			entity.addProjectile(this);
+			Point p = player.getPointer();
+			double ang = Math.atan2(-(p.getY() - player.getY()), p.getX() - player.getX())  - Math.PI / 2;
+			double cos = Math.cos(ang), sin = Math.sin(ang);
+			int dx = (int)(5*cos - 70*sin), dy = (int)(- 70*cos - 5*sin);
+			player.addProjectile(new FireblastProjectile(player.getX() + dx, player.getY() + dy, 20, 20, -(Math.PI / 2 + ang)));
 			time = System.currentTimeMillis();
 		}
 	}
 
 	
-	public boolean isOnScreen() {
-		return getX() >= r && getX() <= Barrage.WIDTH - r && getY() >= r && getY() <= Barrage.HEIGHT - r;
-	}
-	
-	public int getLevel() {
-		return level;
-	}
-	
-	public int getDamage() {
-		return level*5;
-	}
-	
-	@Override
-	public void act() {
-		super.act();
-		if(!isOnScreen())
-			entity.removeProjectile(this);
+	private class FireblastProjectile extends Projectile {
+		private int r;
+		
+		public FireblastProjectile(int x, int y, int height, int width, double direction) {
+			super(x, y, height, width, direction, player, img);
+			r = width/2;
+		}
+		
+		public boolean isOnScreen() {
+			return getX() >= r && getX() <= Barrage.WIDTH - r && getY() >= r && getY() <= Barrage.HEIGHT - r;
+		}
+		
+		@Override
+		public void act() {
+			super.act();
+			if(!isOnScreen())
+				player.removeProjectile(this);
+		}
+		
 	}
 
 	
