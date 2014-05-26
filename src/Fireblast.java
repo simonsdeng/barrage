@@ -35,7 +35,7 @@ public class Fireblast implements Spell {
 		private int r;
 		
 		public FireblastProjectile(int x, int y, int height, int width, double direction) {
-			super(x, y, height, width, direction, player, img);
+			super(x, y, height, width, direction, player.getGrid(), player, img);
 			r = width/2;
 		}
 		
@@ -47,6 +47,9 @@ public class Fireblast implements Spell {
 		public void act() {
 			super.act();
 			if(!isOnScreen())
+				player.removeProjectile(this);
+			
+			if(collision())
 				player.removeProjectile(this);
 		}
 		

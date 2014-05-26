@@ -42,8 +42,8 @@ public class GamePanel extends ViewPanel implements Runnable {
 		player = new Player(Barrage.WIDTH / 2, Barrage.HEIGHT / 2);
 		final Nexus nexus = new Nexus(Grid.COLS / 2, Grid.ROWS / 2);
 		grid = new Grid(player, nexus);
-		
-		grid.add(new Enemy(20, 20, 10, grid));
+		player.setGrid(grid);
+		grid.add(new Enemy(100, 100, 10, grid));
 		
 		final GameListener listener = new GameListener();
 		addKeyListener(listener);

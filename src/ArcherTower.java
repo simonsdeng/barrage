@@ -35,9 +35,9 @@ public class ArcherTower extends Defense {
 //		projectiles.add(new Projectile(getX() + Structure.GRID_SIZE/2, getY() + Structure.GRID_SIZE/2, 10, 10, dir,))
 		for (int i = 0; i < projectiles.size(); i++){
 			Projectile p = projectiles.get(i);
-			if (!p.isActive()){ // Change this according to inactive projectile detection
-				projectiles.remove(i);
-			}
+//			if (!p.isActive()){ // Change this according to inactive projectile detection
+//				projectiles.remove(i);
+//			}
 			p.act();
 		}
 	}
