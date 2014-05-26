@@ -2,7 +2,7 @@ import javax.swing.JFrame;
 
 public class Barrage {
 
-	public static int WIDTH = 1200, HEIGHT = 900;
+	public static int WIDTH = 800, HEIGHT = 600;
 	
 	public static void main(String[] args) {
 		JFrame frame = new JFrame("Barrage");

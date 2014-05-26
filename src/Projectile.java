@@ -50,13 +50,13 @@ public abstract class Projectile extends Entity {
 		g.drawImage(image, (int)(x - width/2), (int)(y - height/2), width, height, null);
 	}
 	
-	public boolean collision() {
+	public Enemy collision() {
 		for(Enemy e : grid.getEnemies()) {
 			if(Math.hypot(x - e.getX(), y - e.getY()) <= e.getRadius() + width/2)
-				return true;
+				return e;
 		}
 		
-		return false;
+		return null;
 	}
 
 }

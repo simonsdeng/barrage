@@ -22,8 +22,12 @@ public class Player extends Entity {
 	private Point pointer;
 	private Image img;
 	private Fireblast fb;
+	private Iceblast ib;
+	private Teleport tp;
 	
 	public static final int MANA_REGEN = 1;
+	private long regenTime;
+	private int regenDelayTime;
 	
 	/**
      * Creates a player at the specified location
@@ -38,8 +42,12 @@ public class Player extends Entity {
 		speed = 7;
 		lives = 3;
 		mana = 100;
+		regenTime = 0;
+		regenDelayTime = 150;
 		pointer = new Point(x, y);
 		fb = new Fireblast();
+		ib = new Iceblast();
+		tp = new Teleport();
 
 		try {
 			img = ImageIO.read(new File("wizard.png"));
@@ -55,18 +63,23 @@ public class Player extends Entity {
 	public void setPointer(Point p) { pointer = p; };
 	
 	
+	
 	public int getMana() { return mana; }
 	public Point getPointer() { return pointer; }
 	public int getLives() { return lives; }
-	public Fireblast getFireblast() { return fb; };
+	public Fireblast getFireblast() { return fb; }
+	public Iceblast getIceblast() { return ib; }
+	public Teleport getTeleport() { return tp; }
 	
 	/**
 	 * Moves the player 
 	 */
 	@Override
 	public void act() {
-		if (mana < 100)
+		if (mana < 100 && System.currentTimeMillis() - regenTime >= regenDelayTime) {
 			mana += MANA_REGEN;
+			regenTime = System.currentTimeMillis();
+		}
 		int dx = 0, dy = 0;
 		
 		if (left) dx -= speed;

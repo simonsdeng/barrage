@@ -148,7 +148,7 @@ public class GamePanel extends ViewPanel implements Runnable {
 		@Override
 		public void mousePressed(MouseEvent e) {
 			player.setPointer(e.getPoint());
-			player.castSpell(player.getFireblast());
+			player.castSpell(player.getTeleport());
 		}
 		
 		@Override

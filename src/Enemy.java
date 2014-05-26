@@ -4,16 +4,23 @@ public class Enemy extends Entity {
 
 	private int health;
 	private int reward;
-	private int r;
+	private boolean alive;
+	private boolean frozen;
+	private long freezeTime;
+	private int freezeDelayTime;
 
 	protected Enemy(int x, int y, int reward, Grid grid) {
 		super(x, y);
 		this.reward = reward;
 		this.grid = grid;
+		alive = true;
+		frozen = false;
+		freezeTime = 0;
+		freezeDelayTime = 0;
+		health = 100;
 		r = 20;
 	}
 	
-	public int getRadius() { return r; }
 	
 	@Override
 	public void draw(Graphics2D g) {
@@ -22,7 +29,19 @@ public class Enemy extends Entity {
 
 	@Override
 	public void act() {
-
+		
+		if(health <= 0) 
+			alive = false;
+		
+		if(frozen && System.currentTimeMillis() - freezeTime >= freezeDelayTime) {
+			frozen = false;
+			System.out.println("UNFROZEN");
+		}
+	}
+	
+	public void freeze() {
+		frozen = true;
+		freezeTime = System.currentTimeMillis();
 	}
 
 	public int getReward() {
@@ -35,6 +54,10 @@ public class Enemy extends Entity {
 	
 	public void setHealth(int health) {
 		this.health = health;
+	}
+	
+	public void setFreezeTime(int freezeDelayTime) {
+		this.freezeDelayTime = freezeDelayTime;
 	}
 
 }

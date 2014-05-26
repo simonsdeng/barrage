@@ -3,25 +3,25 @@ import java.awt.Point;
 
 import javax.swing.ImageIcon;
 
-public class Fireblast implements Spell {
 
+public class Iceblast implements Spell {
+	
 	private int cost;
 	private long time;
 	private int delayTime;
+	private int freezeDelayTime;
 	private Player player;
-	private int damage;
+
+	public static Image img = new ImageIcon("icespell.png").getImage();
 	
-	public static Image img = new ImageIcon("fireball.png").getImage();
-	
-	public Fireblast() {
-		cost = 0;
-		damage = 10;
+	public Iceblast() {
+		cost = 10;
 		time = 0;
-		delayTime = 150;
+		delayTime = 300;
+		freezeDelayTime = 1000;
 	}
 	
-	public int getCost() { return cost; }
-	
+	@Override
 	public void cast(Entity e) {
 		if(player == null)
 			player = (Player) e;
@@ -30,15 +30,22 @@ public class Fireblast implements Spell {
 			double ang = Math.atan2(-(p.getY() - player.getY()), p.getX() - player.getX())  - Math.PI / 2;
 			double cos = Math.cos(ang), sin = Math.sin(ang);
 			double dx = 5*cos - 70*sin, dy =- 70*cos - 5*sin;
-			player.addProjectile(new FireblastProjectile((int)(player.getX() + dx), (int)(player.getY() + dy), 20, 20, -(Math.PI / 2 + ang)));
+			player.addProjectile(new IceblastProjectile((int)(player.getX() + dx), (int)(player.getY() + dy), 20, 20, -(Math.PI / 2 + ang)));
 			time = System.currentTimeMillis();
 		}
+		
+	}
+
+	@Override
+	public int getCost() {
+		return cost;
 	}
 	
-	private class FireblastProjectile extends Projectile {
-		private int r;
+	private class IceblastProjectile extends Projectile {
 		
-		public FireblastProjectile(int x, int y, int height, int width, double direction) {
+		private int r;
+
+		public IceblastProjectile(int x, int y, int height, int width, double direction) {
 			super(x, y, height, width, direction, player.getGrid(), player, img);
 			r = width/2;
 		}
@@ -56,12 +63,11 @@ public class Fireblast implements Spell {
 			Enemy e = collision();
 			if(e != null) {
 				player.removeProjectile(this);
-				e.setHealth(e.getHealth() - damage);
+				e.freeze();
+				e.setFreezeTime(freezeDelayTime);
 			}
-				
 		}
 		
 	}
-
 
 }
