@@ -7,6 +7,7 @@ public abstract class Entity {
 	protected double x;
 	protected double y;
 	protected List<Projectile> projectiles;
+	protected Grid grid;
 	
 	protected Entity(int x, int y) {
 		this.x = x;
@@ -20,6 +21,14 @@ public abstract class Entity {
 	
 	public double getY() {
 		return y;
+	}
+	
+	public Grid getGrid() {
+		return grid;
+	}
+	
+	public void setGrid(Grid g) {
+		grid = g;
 	}
 	
 	public void addProjectile(Projectile p) {

@@ -18,26 +18,20 @@ public abstract class Projectile extends Entity {
 	private Image image;
 	protected Entity entity;
 	
+	
 	/**
 	 * Projectile must be given an initial position as well as direction, which should be a number on the closed interval [0, 2pi]. The image provided is the image shown on the projectile animation.
 	 */
-	public Projectile(int x, int y,int height, int width, double direction, Entity entity, Image image) {
+	public Projectile(int x, int y,int height, int width, double direction, Grid grid, Entity entity, Image image) {
 		super(x, y);
 		this.width = width;
 		this.height = height;
 		theta = direction;
 		this.image = image;
 		this.entity = entity;
+		this.grid = grid;
 	}
 	
-	public void setShooter(Entity shooter){
-		this.shooter = shooter;
-	}
-	
-	//Implement this Method
-	public boolean isActive(){
-		return false; 
-	}
 	
 	/**
 	 * Advances the position of the projectile
@@ -53,7 +47,16 @@ public abstract class Projectile extends Entity {
 	 */
 	@Override
 	public void draw(Graphics2D g) {
-		g.drawImage(image, (int)x, (int)y, width, height, null);
+		g.drawImage(image, (int)(x - width/2), (int)(y - height/2), width, height, null);
+	}
+	
+	public boolean collision() {
+		for(Enemy e : grid.getEnemies()) {
+			if(Math.hypot(x - e.getX(), y - e.getY()) <= e.getRadius() + width/2)
+				return true;
+		}
+		
+		return false;
 	}
 
 }
