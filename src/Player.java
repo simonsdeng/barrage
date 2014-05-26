@@ -17,9 +17,13 @@ public class Player extends Entity {
 	private int width, height;
 	private int speed;
 	private int lives;
+	private int mana;
 	private boolean left, right, up, down;
 	private Point pointer;
 	private Image img;
+	private Fireblast fb;
+	
+	public static final int MANA_REGEN = 1;
 	
 	/**
      * Creates a player at the specified location
@@ -33,7 +37,9 @@ public class Player extends Entity {
 		height = 100;
 		speed = 7;
 		lives = 3;
+		mana = 100;
 		pointer = new Point(x, y);
+		fb = new Fireblast();
 
 		try {
 			img = ImageIO.read(new File("wizard.png"));
@@ -48,11 +54,19 @@ public class Player extends Entity {
 	public void setDown(boolean b) { down = b; }
 	public void setPointer(Point p) { pointer = p; };
 	
+	
+	public int getMana() { return mana; }
+	public Point getPointer() { return pointer; }
+	public int getLives() { return lives; }
+	public Fireblast getFireblast() { return fb; };
+	
 	/**
 	 * Moves the player 
 	 */
 	@Override
 	public void act() {
+		if (mana < 100)
+			mana += MANA_REGEN;
 		int dx = 0, dy = 0;
 		
 		if (left) dx -= speed;
@@ -78,8 +92,12 @@ public class Player extends Entity {
 	}
 	
 	public void castSpell(Spell s) {
-		s.cast(this);
+		if(mana - s.getCost() >= 0) {
+			s.cast(this);
+			mana -= s.getCost();
+		}
 	}
+	
 	
 	/**
 	 * Draws the player
@@ -89,7 +107,6 @@ public class Player extends Entity {
 	@Override
 	public void draw(Graphics2D g) {
 		final double ang = Math.atan2(-(pointer.y - y), pointer.x - x) - Math.PI / 2;
-		
 		g.rotate(-ang, x, y);
 		g.drawImage(img, x + 19 - width / 2, y - 22 - height / 2, width, height, null);
 		g.rotate(ang, x, y);
