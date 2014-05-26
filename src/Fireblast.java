@@ -26,7 +26,7 @@ public class Fireblast implements Spell {
 			double ang = Math.atan2(-(p.getY() - player.getY()), p.getX() - player.getX())  - Math.PI / 2;
 			double cos = Math.cos(ang), sin = Math.sin(ang);
 			int dx = (int)(5*cos - 70*sin), dy = (int)(- 70*cos - 5*sin);
-			player.addProjectile(new FireblastProjectile(player.getX() + dx, player.getY() + dy, 20, 20, -(Math.PI / 2 + ang)));
+			player.addProjectile(new FireblastProjectile((int)(player.getX() + dx), (int)(player.getY() + dy), 20, 20, -(Math.PI / 2 + ang)));
 			time = System.currentTimeMillis();
 		}
 	}
