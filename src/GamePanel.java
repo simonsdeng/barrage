@@ -6,8 +6,6 @@ import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
-import java.util.ArrayList;
-import java.util.List;
 
 import javax.swing.JFrame;
 
@@ -25,9 +23,6 @@ public class GamePanel extends ViewPanel implements Runnable {
 	private boolean running;
 	private Grid grid;
 	private Player player;
-	private Nexus nexus;
-	private List<Enemy> enemies;
-	private List<Defense> defenses;
 	
 	/**
 	 * Creates a new GamePanel with the specified width and height
@@ -43,14 +38,11 @@ public class GamePanel extends ViewPanel implements Runnable {
 	
 	@Override
 	protected void start() {
-		grid = new Grid();
 		player = new Player(Barrage.WIDTH / 2, Barrage.HEIGHT / 2);
-		nexus = new Nexus(Grid.COLS / 2, Grid.ROWS / 2);
-		enemies = new ArrayList<Enemy>();
-		defenses = new ArrayList<Defense>();
+		final Nexus nexus = new Nexus(Grid.COLS / 2, Grid.ROWS / 2);
+		grid = new Grid(player, nexus);
 		
-		grid.add(player);
-		grid.add(nexus);
+		grid.add(new Enemy(20, 20, 10, grid));
 		
 		final GameListener listener = new GameListener();
 		addKeyListener(listener);
@@ -60,40 +52,25 @@ public class GamePanel extends ViewPanel implements Runnable {
 		new Thread(this).start();
 	}
 	
-	private void add(Enemy enemy) {
-		enemies.add(enemy);
-		grid.add(enemy);
-	}
-	
-	private void add(Defense defense) {
-		defenses.add(defense);
-		grid.add(defense);
-	}
-	
-	private void remove(Enemy enemy) {
-		enemies.remove(enemy);
-		grid.remove(enemy);
-	}
-	
-	private void remove(Defense defense) {
-		defenses.remove(defense);
-		grid.remove(defense);
-	}
-	
 	private void update() {
-		player.act();
-		for (Projectile p : player.getProjectiles()) p.act();
+		for (Entity e : grid.getEntities()) {
+			e.act();
+			for (Projectile p : e.getProjectiles()) p.act(); 
+		}
+		
 		grid.updateEntities();
 	}
 	
 	@Override
 	protected void paintComponent(Graphics g) {
 		super.paintComponent(g);
+		final Graphics2D g2d = (Graphics2D) g;
 		
 		if (running) {
-			Graphics2D g2d = (Graphics2D) g;
-			player.draw(g2d);
-			for (Projectile p : player.getProjectiles()) p.draw(g2d);
+			for (Entity e : grid.getEntities()) {
+				e.draw(g2d);
+				for (Projectile p : e.getProjectiles()) p.draw(g2d);
+			}
 		}
 	}
 	

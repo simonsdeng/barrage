@@ -4,15 +4,17 @@ public class Enemy extends Entity {
 
 	private int health;
 	private int reward;
+	private Grid grid;
 
-	protected Enemy(int x, int y, int reward) {
+	protected Enemy(int x, int y, int reward, Grid grid) {
 		super(x, y);
 		this.reward = reward;
+		this.grid = grid;
 	}
 
 	@Override
 	public void draw(Graphics2D g) {
-
+		g.fillOval(x - 20, y - 20, 40, 40);
 	}
 
 	@Override

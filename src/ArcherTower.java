@@ -1,6 +1,7 @@
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.ImageIcon;
 
@@ -8,25 +9,24 @@ import javax.swing.ImageIcon;
 public class ArcherTower extends Defense {
 
 	public static final Image icon = new ImageIcon("archertower.png").getImage();
-	private ArrayList<Enemy> enemies;
 	
-	private ArrayList<Projectile> projectiles;
+	private Grid grid;
+	private List<Projectile> projectiles;
 
-	public ArcherTower(int gridX, int gridY, ArrayList<Enemy> enemies) {
+	public ArcherTower(int gridX, int gridY, Grid grid) {
 		super(gridX, gridY);
-		this.enemies = enemies;
+		this.grid = grid;
 		projectiles = new ArrayList<Projectile>();
 	}
 
 	@Override
 	public void draw(Graphics2D g) {
 		g.drawImage(icon, x, y, Grid.CELL_SIZE, Grid.CELL_SIZE, null);
-		
 	}
 
 	@Override
 	public void act() {
-		ArrayList<Enemy> proximity = getEnemiesInProximity(enemies);
+		List<Enemy> proximity = getEnemiesInProximity(grid.getEnemies());
 		Enemy target = proximity.get((int)(Math.random() * proximity.size()));
 		double dir = getDirectionTowards(target.getX(), target.getY());
 //		projectiles.add(new Projectile(getX() + Structure.GRID_SIZE/2, getY() + Structure.GRID_SIZE/2, 10, 10, dir,))

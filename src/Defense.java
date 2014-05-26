@@ -1,5 +1,6 @@
 import java.awt.Point;
 import java.util.ArrayList;
+import java.util.List;
 
 public abstract class Defense extends Structure {
 
@@ -36,7 +37,7 @@ public abstract class Defense extends Structure {
 		return health;
 	}
 	
-	public ArrayList<Enemy> getEnemiesInProximity(ArrayList<Enemy> enemies){
+	public ArrayList<Enemy> getEnemiesInProximity(List<Enemy> enemies){
 		ArrayList<Enemy> close = new ArrayList<Enemy>();
 		for (Enemy enemy: enemies){
 			Point e = new Point(enemy.getX(), enemy.getY());
