@@ -21,14 +21,17 @@ public class ArcherTower extends Defense {
 
 	@Override
 	public void draw(Graphics2D g) {
-		g.drawImage(icon, x, y, Grid.CELL_SIZE, Grid.CELL_SIZE, null);
+		g.drawImage(icon, (int)x, (int)y, Grid.CELL_SIZE, Grid.CELL_SIZE, null);
 	}
 
 	@Override
 	public void act() {
 		List<Enemy> proximity = getEnemiesInProximity(grid.getEnemies());
-		Enemy target = proximity.get((int)(Math.random() * proximity.size()));
-		double dir = getDirectionTowards(target.getX(), target.getY());
+
+		if (proximity.size() > 0){
+			Enemy target = proximity.get((int)(Math.random() * proximity.size()));
+			double dir = getDirectionTowards((int)target.getX(), (int)target.getY());
+		}
 //		projectiles.add(new Projectile(getX() + Structure.GRID_SIZE/2, getY() + Structure.GRID_SIZE/2, 10, 10, dir,))
 		for (int i = 0; i < projectiles.size(); i++){
 			Projectile p = projectiles.get(i);

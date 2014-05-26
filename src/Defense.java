@@ -40,8 +40,8 @@ public abstract class Defense extends Structure {
 	public ArrayList<Enemy> getEnemiesInProximity(List<Enemy> enemies){
 		ArrayList<Enemy> close = new ArrayList<Enemy>();
 		for (Enemy enemy: enemies){
-			Point e = new Point(enemy.getX(), enemy.getY());
-			Point p = new Point(getX(), getY());
+			Point e = new Point((int)(enemy.getX()), (int)(enemy.getY()));
+			Point p = new Point((int)(getX()), (int)(getY()));
 			double dist = e.distance(p);
 			if (dist - range < .0001){
 				close.add(enemy);

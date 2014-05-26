@@ -4,8 +4,8 @@ import java.util.concurrent.CopyOnWriteArrayList;
 
 public abstract class Entity {
 
-	protected int x;
-	protected int y;
+	protected double x;
+	protected double y;
 	protected List<Projectile> projectiles;
 	
 	protected Entity(int x, int y) {
@@ -14,11 +14,11 @@ public abstract class Entity {
 		projectiles = new CopyOnWriteArrayList<Projectile>();
 	}
 	
-	public int getX() {
+	public double getX() {
 		return x;
 	}
 	
-	public int getY() {
+	public double getY() {
 		return y;
 	}
 	

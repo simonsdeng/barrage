@@ -37,7 +37,7 @@ public class Grid {
 	}
 	
 	public static Point getContainingCell(Entity e) {
-		return new Point(e.getX() / CELL_SIZE, e.getY() / CELL_SIZE);
+		return new Point((int)(e.getX() / CELL_SIZE), (int)(e.getY() / CELL_SIZE));
 	}
 	
 	public Player getPlayer() {

@@ -14,7 +14,7 @@ public class Enemy extends Entity {
 
 	@Override
 	public void draw(Graphics2D g) {
-		g.fillOval(x - 20, y - 20, 40, 40);
+		g.fillOval((int)(x - 20), (int)(y - 20), 40, 40);
 	}
 
 	@Override

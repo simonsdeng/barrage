@@ -21,15 +21,17 @@ public class QuakeTower extends Defense {
 
 	@Override
 	public void draw(Graphics2D g) {
-		g.drawImage(icon, x, y, Grid.CELL_SIZE, Grid.CELL_SIZE, null);
+		g.drawImage(icon, (int)x, (int)y, Grid.CELL_SIZE, Grid.CELL_SIZE, null);
 
 	}
 
 	@Override
 	public void act() {
 		ArrayList<Enemy> proximity = getEnemiesInProximity(enemies);
-		for(Enemy enemy: proximity){
-			enemy.setHealth(enemy.getHealth() - damage);
+		if (proximity.size() > 0){
+			for(Enemy enemy: proximity){
+				enemy.setHealth(enemy.getHealth() - damage);
+			}
 		}
 	}
 

@@ -53,7 +53,7 @@ public abstract class Projectile extends Entity {
 	 */
 	@Override
 	public void draw(Graphics2D g) {
-		g.drawImage(image, x, y, width, height, null);
+		g.drawImage(image, (int)x, (int)y, width, height, null);
 	}
 
 }

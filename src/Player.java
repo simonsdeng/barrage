@@ -108,7 +108,7 @@ public class Player extends Entity {
 	public void draw(Graphics2D g) {
 		final double ang = Math.atan2(-(pointer.y - y), pointer.x - x) - Math.PI / 2;
 		g.rotate(-ang, x, y);
-		g.drawImage(img, x + 19 - width / 2, y - 22 - height / 2, width, height, null);
+		g.drawImage(img, (int)(x + 19 - width / 2), (int)(y - 22 - height / 2), width, height, null);
 		g.rotate(ang, x, y);
 	}
 
