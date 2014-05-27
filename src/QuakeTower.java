@@ -30,8 +30,9 @@ public class QuakeTower extends Defense {
 		List<Enemy> proximity = getEnemiesInProximity(grid.getEnemies());
 		if (proximity.size() > 0 && System.currentTimeMillis() - time > delayTime) {
 			for (Enemy enemy: proximity) enemy.setHealth(enemy.getHealth() - damage);
+			time = System.currentTimeMillis();
 		}
-		time = System.currentTimeMillis();
+
 	}
 
 }
