@@ -10,7 +10,6 @@ import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.awt.geom.Point2D;
 
-import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 /**
@@ -31,7 +30,7 @@ public class GamePanel extends JPanel implements Runnable {
 	private Grid grid;
 	private Player player;
 	
-	private JFrame parent;
+	private JPanel mainPanel;
 	
 	
 	/**
@@ -41,10 +40,8 @@ public class GamePanel extends JPanel implements Runnable {
 	 * @param height the width of the GamePanel
 	 * @param frame the parent JFrame
 	 */
-	public GamePanel(JFrame frame, int width, int height) {
-		super();
-		frame.setContentPane(this);
-		this.parent = frame;
+	public GamePanel(JPanel mainPanel, int width, int height) {
+		this.mainPanel = mainPanel;
 		setPreferredSize(new Dimension(width, height));
 		setBackground(Color.WHITE);
 	
@@ -53,8 +50,6 @@ public class GamePanel extends JPanel implements Runnable {
 	}
 	
 	protected void start() {
-		requestFocusInWindow();
-		
 		player = new Player(new Point2D.Double(Barrage.WIDTH / 2, Barrage.HEIGHT / 2));
 		final Nexus nexus = new Nexus(new Point(Grid.COLS / 2, Grid.ROWS / 2));
 		grid = new Grid(player, nexus);
@@ -70,9 +65,9 @@ public class GamePanel extends JPanel implements Runnable {
 		grid.add(new ArcherTower(new Point(5, 5)));
 		
 		final GameListener listener = new GameListener();
-		parent.addKeyListener(listener);
+		mainPanel.addKeyListener(listener);
 		addMouseListener(listener);
-		parent.addMouseMotionListener(listener);
+		addMouseMotionListener(listener);
 		
 		new Thread(this).start();
 	}
@@ -140,7 +135,6 @@ public class GamePanel extends JPanel implements Runnable {
 				player.setUp(true);
 				break;
 			case KeyEvent.VK_S:
-				System.out.println("works");
 				player.setDown(true);
 				break;
 			}
@@ -172,7 +166,6 @@ public class GamePanel extends JPanel implements Runnable {
 		
 		@Override
 		public void mousePressed(MouseEvent e) {
-
 			player.setPointer(e.getPoint());
 			player.castSpell(player.getFireblast());
 		}
