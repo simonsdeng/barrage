@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.PriorityQueue;
 import java.util.Queue;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 public class Grid {
 
@@ -36,7 +37,7 @@ public class Grid {
 		structures = new ArrayList<Structure>();
 		entityGrid = new boolean[COLS][ROWS];
 		structureGrid = new boolean[COLS][ROWS];
-		activePaths = new ArrayList<Path>();
+		activePaths = new CopyOnWriteArrayList<Path>();
 		
 		add(player);
 		add(nexus);
