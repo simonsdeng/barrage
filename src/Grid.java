@@ -1,4 +1,5 @@
 import java.awt.Point;
+import java.awt.geom.Point2D;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -41,12 +42,17 @@ public class Grid {
 		add(nexus);
 	}
 	
-	public static Point getCellCenter(int gridX, int gridY) {
-		return new Point((2 * gridX + 1) * Grid.CELL_SIZE / 2, (2 * gridY + 1) * Grid.CELL_SIZE / 2);
+	public static Point2D.Double getCellCenter(Point gridLoc) {
+		return new Point2D.Double((2 * gridLoc.x + 1) * CELL_SIZE / 2.0,
+				(2 * gridLoc.y + 1) * CELL_SIZE / 2.0);
 	}
 	
 	public static Point getContainingCell(Entity e) {
-		return new Point((int)(e.getX() / CELL_SIZE), (int)(e.getY() / CELL_SIZE));
+		return getContainingCell(e.getLocation());
+	}
+	
+	public static Point getContainingCell(Point2D.Double loc) {
+		return new Point((int) loc.x / CELL_SIZE, (int) loc.y / CELL_SIZE);
 	}
 	
 	public Player getPlayer() {
@@ -99,6 +105,7 @@ public class Grid {
 	
 	public final void add(Entity entity) {
 		entities.add(entity);
+		entity.setGrid(this);
 		updateEntities();
 	}
 	
@@ -138,7 +145,8 @@ public class Grid {
 		for (boolean[] r : structureGrid) Arrays.fill(r, false);
 		
 		for (Structure s : structures) {
-			structureGrid[s.getGridX()][s.getGridY()] = true;
+			final Point gridLoc = s.getGridLocation(); 
+			structureGrid[gridLoc.x][gridLoc.y] = true;
 		}
 	}
 	
@@ -154,13 +162,15 @@ public class Grid {
 	
 	private LinkedList<Point> getPathList(Point from, Point to) {
 		final double[][] cost = new double[COLS][ROWS];
+		final double[][] estimate = new double[COLS][ROWS];
 		for (double[] r : cost) Arrays.fill(r, Integer.MAX_VALUE);
 		cost[from.x][from.y] = 0;
+		estimate[from.x][from.y] = from.distance(to);
 		
 		final Queue<Point> queue = new PriorityQueue<Point>(10, new Comparator<Point>() {
 			@Override
 			public int compare(Point o1, Point o2) {
-				return (int) (cost[o1.x][o1.y] - cost[o2.x][o2.y]); 
+				return (int) (estimate[o1.x][o1.y] - estimate[o2.x][o2.y]); 
 			}
 		});
 		final Map<Point, Point> visited = new HashMap<Point, Point>();
@@ -184,6 +194,7 @@ public class Grid {
 					if (tmpCost < cost[x][y]) {
 						visited.put(next, p);
 						cost[x][y] = tmpCost;
+						estimate[x][y] = tmpCost + next.distance(to);
 						queue.add(next);
 					}
 				}
@@ -209,7 +220,7 @@ public class Grid {
 		
 		public Path(LinkedList<Point> path) {
 			this.path = path;
-			current = path.remove();
+			current = path.getFirst();
 		}
 		
 		protected void updatePath() {
@@ -218,14 +229,13 @@ public class Grid {
 		
 		public Point getNext() {
 			current = path.remove();
-
+			
 			if (path.isEmpty()) {
 				activePaths.remove(this);
 				return null;
 			}
 			
-			final Point next = path.getFirst();
-			return next;
+			return path.remove();
 		}
 		
 	}

@@ -1,5 +1,6 @@
 import java.awt.Graphics2D;
 import java.awt.Image;
+import java.awt.geom.Point2D;
 
 /**
  * @author Vikram Idury
@@ -22,14 +23,14 @@ public abstract class Projectile extends Entity {
 	/**
 	 * Projectile must be given an initial position as well as direction, which should be a number on the closed interval [0, 2pi]. The image provided is the image shown on the projectile animation.
 	 */
-	public Projectile(int x, int y,int height, int width, double direction, Grid grid, Entity entity, Image image) {
-		super(x, y);
+	public Projectile(Point2D.Double loc, int height, int width, double direction, Entity entity, Image image) {
+		super(loc);
 		this.width = width;
 		this.height = height;
 		theta = direction;
 		this.image = image;
 		this.entity = entity;
-		this.grid = grid;
+		setGrid(entity.getGrid());
 	}
 	
 	
@@ -37,8 +38,8 @@ public abstract class Projectile extends Entity {
 	 * Advances the position of the projectile
 	 */
 	public void act() {
-		x += Math.cos(theta) * velocity;
-		y += Math.sin(theta) * velocity;
+		loc.x += Math.cos(theta) * velocity;
+		loc.y += Math.sin(theta) * velocity;
 	}
 	
 	/**
@@ -47,16 +48,22 @@ public abstract class Projectile extends Entity {
 	 */
 	@Override
 	public void draw(Graphics2D g) {
-		g.drawImage(image, (int)(x - width/2), (int)(y - height/2), width, height, null);
+		g.drawImage(image, (int) (loc.x - width / 2), (int) (loc.y - height / 2),
+				width, height, null);
 	}
 	
-	public boolean collision() {
-		for(Enemy e : grid.getEnemies()) {
-			if(Math.hypot(x - e.getX(), y - e.getY()) <= e.getRadius() + width/2)
-				return true;
+	public Enemy collision() {
+		for (Enemy e : grid.getEnemies()) {
+			final Point2D.Double l = e.getLocation();
+			if (Math.hypot(loc.x - l.x, loc.y - l.y) <= e.getRadius() + width / 2)
+				return e;
 		}
 		
-		return false;
+		return null;
+	}
+	
+	public boolean isOnScreen() {
+		return loc.x >= r && loc.x <= Barrage.WIDTH - r && loc.y >= r && loc.y <= Barrage.HEIGHT - r;
 	}
 
 }

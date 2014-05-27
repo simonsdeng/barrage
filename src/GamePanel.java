@@ -2,11 +2,13 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.Point;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
+import java.awt.geom.Point2D;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -52,14 +54,20 @@ public class GamePanel extends JPanel implements Runnable {
 	
 	protected void start() {
 		requestFocusInWindow();
-
-		player = new Player(Barrage.WIDTH / 2, Barrage.HEIGHT / 2);
-		final Nexus nexus = new Nexus(Grid.COLS / 2, Grid.ROWS / 2);
-		grid = new Grid(player, nexus);
-		player.setGrid(grid);
-		grid.add(new Enemy(100, 100, 10, grid));
 		
-		grid.add(new ArcherTower(5, 5, grid));
+		player = new Player(new Point2D.Double(Barrage.WIDTH / 2, Barrage.HEIGHT / 2));
+		final Nexus nexus = new Nexus(new Point(Grid.COLS / 2, Grid.ROWS / 2));
+		grid = new Grid(player, nexus);
+		grid.add(new Enemy(new Point2D.Double(100, 100), 10));
+		
+//		grid.add(new ArcherTower(Grid.COLS / 2, Grid.ROWS / 2 - 3, grid));
+//		grid.add(new ArcherTower(Grid.COLS / 2, Grid.ROWS / 2 - 2, grid));
+//		grid.add(new ArcherTower(Grid.COLS / 2, Grid.ROWS / 2 - 1, grid));
+//		grid.add(new ArcherTower(Grid.COLS / 2, Grid.ROWS / 2 + 1, grid));
+//		grid.add(new ArcherTower(Grid.COLS / 2, Grid.ROWS / 2 + 2, grid));
+//		grid.add(new ArcherTower(Grid.COLS / 2, Grid.ROWS / 2 + 3, grid));
+		
+		grid.add(new ArcherTower(new Point(5, 5)));
 		
 		final GameListener listener = new GameListener();
 		parent.addKeyListener(listener);
