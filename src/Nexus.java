@@ -1,9 +1,10 @@
 import java.awt.Graphics2D;
+import java.awt.Point;
 
 public class Nexus extends Structure {
 
-	public Nexus(int gridX, int gridY) {
-		super(gridX, gridY);
+	public Nexus(Point gridLoc) {
+		super(gridLoc);
 	}
 
 	@Override

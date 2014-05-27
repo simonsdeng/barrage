@@ -1,6 +1,7 @@
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.Point;
+import java.awt.geom.Point2D;
 import java.io.File;
 import java.io.IOException;
 
@@ -31,14 +32,14 @@ public class Player extends Entity {
      * @param x the x-coordinate of the player's location
      * @param y the y-coordinate of the player's location
      */
-	public Player(int x, int y) {
-		super(x, y);
+	public Player(Point2D.Double loc) {
+		super(loc);
 		width = 100;
 		height = 100;
 		speed = 7;
 		lives = 3;
 		mana = 100;
-		pointer = new Point(x, y);
+		pointer = new Point((int) loc.x, (int) loc.y);
 		fb = new Fireblast();
 
 		try {
@@ -53,7 +54,6 @@ public class Player extends Entity {
 	public void setUp(boolean b) { up = b; }
 	public void setDown(boolean b) { down = b; }
 	public void setPointer(Point p) { pointer = p; };
-	
 	
 	public int getMana() { return mana; }
 	public Point getPointer() { return pointer; }
@@ -79,16 +79,16 @@ public class Player extends Entity {
 			dy /= Math.sqrt(2);
 		}
 		
-		x += dx;
-		y += dy;
+		loc.x += dx;
+		loc.y += dy;
 		
 		final int hw = width / 2;
 		final int hh = height / 2;
 		
-		if (x < hh) x = hw;
-		if (y < hw) y = hh;
-		if (x + hw > Barrage.WIDTH) x = Barrage.WIDTH - hw;
-		if (y + hh > Barrage.HEIGHT) y = Barrage.HEIGHT - hh;
+		if (loc.x < hh) loc.x = hw;
+		if (loc.y < hw) loc.y = hh;
+		if (loc.x + hw > Barrage.WIDTH) loc.x = Barrage.WIDTH - hw;
+		if (loc.y + hh > Barrage.HEIGHT) loc.y = Barrage.HEIGHT - hh;
 	}
 	
 	public void castSpell(Spell s) {
@@ -106,10 +106,11 @@ public class Player extends Entity {
 	 */
 	@Override
 	public void draw(Graphics2D g) {
-		final double ang = Math.atan2(-(pointer.y - y), pointer.x - x) - Math.PI / 2;
-		g.rotate(-ang, x, y);
-		g.drawImage(img, (int)(x + 19 - width / 2), (int)(y - 22 - height / 2), width, height, null);
-		g.rotate(ang, x, y);
+		final double ang = Math.atan2(-(pointer.y - loc.y), pointer.x - loc.x) - Math.PI / 2;
+		g.rotate(-ang, loc.x, loc.y);
+		g.drawImage(img, (int) (loc.x + 19 - width / 2), (int) (loc.y - 22 - height / 2),
+				width, height, null);
+		g.rotate(ang, loc.x, loc.y);
 	}
 
 }

@@ -1,34 +1,29 @@
 import java.awt.Graphics2D;
+import java.awt.geom.Point2D;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 public abstract class Entity {
 
-	protected double x;
-	protected double y;
+	protected Point2D.Double loc;
 	protected List<Projectile> projectiles;
 	protected Grid grid;
 	
-	protected Entity(int x, int y) {
-		this.x = x;
-		this.y = y;
+	protected Entity(Point2D.Double loc) {
+		this.loc = loc;
 		projectiles = new CopyOnWriteArrayList<Projectile>();
 	}
 	
-	public double getX() {
-		return x;
+	public Point2D.Double getLocation() {
+		return loc;
 	}
 	
-	public double getY() {
-		return y;
-	}
-	
-	public Grid getGrid() {
+	public final Grid getGrid() {
 		return grid;
 	}
 	
-	public void setGrid(Grid g) {
-		grid = g;
+	public final void setGrid(Grid grid) {
+		this.grid = grid;
 	}
 	
 	public void addProjectile(Projectile p) {
