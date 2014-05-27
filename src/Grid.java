@@ -162,13 +162,15 @@ public class Grid {
 	
 	private LinkedList<Point> getPathList(Point from, Point to) {
 		final double[][] cost = new double[COLS][ROWS];
+		final double[][] estimate = new double[COLS][ROWS];
 		for (double[] r : cost) Arrays.fill(r, Integer.MAX_VALUE);
 		cost[from.x][from.y] = 0;
+		estimate[from.x][from.y] = from.distance(to);
 		
 		final Queue<Point> queue = new PriorityQueue<Point>(10, new Comparator<Point>() {
 			@Override
 			public int compare(Point o1, Point o2) {
-				return (int) (cost[o1.x][o1.y] - cost[o2.x][o2.y]); 
+				return (int) (estimate[o1.x][o1.y] - estimate[o2.x][o2.y]); 
 			}
 		});
 		final Map<Point, Point> visited = new HashMap<Point, Point>();
@@ -226,14 +228,13 @@ public class Grid {
 		
 		public Point getNext() {
 			current = path.remove();
-
+			
 			if (path.isEmpty()) {
 				activePaths.remove(this);
 				return null;
 			}
 			
-			final Point next = path.getFirst();
-			return next;
+			return path.remove();
 		}
 		
 	}
