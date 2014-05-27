@@ -46,6 +46,13 @@ public class GamePanel extends ViewPanel implements Runnable {
 		grid = new Grid(player, nexus);
 		grid.add(new Enemy(new Point2D.Double(100, 100), 10));
 		
+//		grid.add(new ArcherTower(Grid.COLS / 2, Grid.ROWS / 2 - 3, grid));
+//		grid.add(new ArcherTower(Grid.COLS / 2, Grid.ROWS / 2 - 2, grid));
+//		grid.add(new ArcherTower(Grid.COLS / 2, Grid.ROWS / 2 - 1, grid));
+//		grid.add(new ArcherTower(Grid.COLS / 2, Grid.ROWS / 2 + 1, grid));
+//		grid.add(new ArcherTower(Grid.COLS / 2, Grid.ROWS / 2 + 2, grid));
+//		grid.add(new ArcherTower(Grid.COLS / 2, Grid.ROWS / 2 + 3, grid));
+		
 		final GameListener listener = new GameListener();
 		addKeyListener(listener);
 		addMouseListener(listener);

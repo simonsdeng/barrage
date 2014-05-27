@@ -194,6 +194,7 @@ public class Grid {
 					if (tmpCost < cost[x][y]) {
 						visited.put(next, p);
 						cost[x][y] = tmpCost;
+						estimate[x][y] = tmpCost + next.distance(to);
 						queue.add(next);
 					}
 				}
@@ -219,7 +220,7 @@ public class Grid {
 		
 		public Path(LinkedList<Point> path) {
 			this.path = path;
-			current = path.remove();
+			current = path.getFirst();
 		}
 		
 		protected void updatePath() {

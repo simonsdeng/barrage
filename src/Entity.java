@@ -27,11 +27,11 @@ public abstract class Entity {
 		return r;
 	}
 	
-	public final Grid getGrid() {
+	public Grid getGrid() {
 		return grid;
 	}
 	
-	public final void setGrid(Grid grid) {
+	public void setGrid(Grid grid) {
 		this.grid = grid;
 	}
 	
