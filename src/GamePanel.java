@@ -1,4 +1,5 @@
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Point;
@@ -10,6 +11,7 @@ import java.awt.event.MouseMotionListener;
 import java.awt.geom.Point2D;
 
 import javax.swing.JFrame;
+import javax.swing.JPanel;
 
 /**
  * The main game view of Barrage
@@ -18,13 +20,18 @@ import javax.swing.JFrame;
  * @author Nikhil Ghosh
  */
 @SuppressWarnings("serial")
-public class GamePanel extends ViewPanel implements Runnable {
+public class GamePanel extends JPanel implements Runnable {
 
 	private static final int FPS = 30;
+	
+	public static final int WIDTH = 800;
+	public static final int HEIGHT = 600;
 	
 	private boolean running;
 	private Grid grid;
 	private Player player;
+	
+	private JFrame parent;
 	
 	
 	/**
@@ -35,12 +42,19 @@ public class GamePanel extends ViewPanel implements Runnable {
 	 * @param frame the parent JFrame
 	 */
 	public GamePanel(JFrame frame, int width, int height) {
-		super(frame, width, height);
+		super();
+		frame.setContentPane(this);
+		this.parent = frame;
+		setPreferredSize(new Dimension(width, height));
 		setBackground(Color.WHITE);
+	
+		start();
+
 	}
 	
-	@Override
 	protected void start() {
+		requestFocusInWindow();
+		
 		player = new Player(new Point2D.Double(Barrage.WIDTH / 2, Barrage.HEIGHT / 2));
 		final Nexus nexus = new Nexus(new Point(Grid.COLS / 2, Grid.ROWS / 2));
 		grid = new Grid(player, nexus);
@@ -53,10 +67,12 @@ public class GamePanel extends ViewPanel implements Runnable {
 //		grid.add(new ArcherTower(Grid.COLS / 2, Grid.ROWS / 2 + 2, grid));
 //		grid.add(new ArcherTower(Grid.COLS / 2, Grid.ROWS / 2 + 3, grid));
 		
+		grid.add(new ArcherTower(new Point(5, 5)));
+		
 		final GameListener listener = new GameListener();
-		addKeyListener(listener);
+		parent.addKeyListener(listener);
 		addMouseListener(listener);
-		addMouseMotionListener(listener);
+		parent.addMouseMotionListener(listener);
 		
 		new Thread(this).start();
 	}
@@ -105,7 +121,7 @@ public class GamePanel extends ViewPanel implements Runnable {
 		}
 	}
 	
-	@Override
+
 	protected void stop() {
 		running = false;
 	}
@@ -124,6 +140,7 @@ public class GamePanel extends ViewPanel implements Runnable {
 				player.setUp(true);
 				break;
 			case KeyEvent.VK_S:
+				System.out.println("works");
 				player.setDown(true);
 				break;
 			}
@@ -155,6 +172,7 @@ public class GamePanel extends ViewPanel implements Runnable {
 		
 		@Override
 		public void mousePressed(MouseEvent e) {
+
 			player.setPointer(e.getPoint());
 			player.castSpell(player.getFireblast());
 		}

@@ -9,8 +9,8 @@ public class Barrage {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setResizable(false);
 		frame.setVisible(true);
-		
-		new GamePanel(frame, WIDTH, HEIGHT).init();
+
+		new MainPanel(frame,WIDTH,HEIGHT).init();
 	}
 
 }

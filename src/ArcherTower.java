@@ -1,6 +1,7 @@
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.Point;
+import java.awt.geom.Point2D;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -8,11 +9,15 @@ import javax.swing.ImageIcon;
 
 public class ArcherTower extends Defense {
 
+	public static final Image projectileImage = new ImageIcon("shuriken.gif").getImage();
 	public static final Image icon = new ImageIcon("archertower.png").getImage();
+	
+	private static long time = 0;
+	private static int delayTime = 150;
 	private List<Projectile> projectiles;
 
-	public ArcherTower(Point gridLoc, Grid grid) {
-		super(gridLoc, grid);
+	public ArcherTower(Point gridLoc) {
+		super(gridLoc);
 		projectiles = new ArrayList<Projectile>();
 	}
 
@@ -25,19 +30,34 @@ public class ArcherTower extends Defense {
 	@Override
 	public void act() {
 		List<Enemy> proximity = getEnemiesInProximity(grid.getEnemies());
-
-		if (proximity.size() > 0){
-			Enemy target = proximity.get((int) (Math.random() * proximity.size()));
+		if (proximity.size() > 0 && System.currentTimeMillis() - time >= delayTime){
+			Enemy target = proximity.get((int)(Math.random() * proximity.size()));
 			double dir = getDirectionTowards(target.getLocation());
+			addProjectile(new Arrow(new Point2D.Double(loc.x, loc.y), 10, 10, dir,grid,this));
 		}
-//		projectiles.add(new Projectile(getX() + Structure.GRID_SIZE/2, getY() + Structure.GRID_SIZE/2, 10, 10, dir,))
-		for (int i = 0; i < projectiles.size(); i++){
-			Projectile p = projectiles.get(i);
-//			if (!p.isActive()){ // Change this according to inactive projectile detection
-//				projectiles.remove(i);
-//			}
-			p.act();
+		time = System.currentTimeMillis();
+
+	}
+	
+	private class Arrow extends Projectile {
+		private int r;
+		private ArcherTower tower;
+
+		
+		public Arrow(Point2D.Double loc, int height, int width, double direction,Grid grid, ArcherTower tower) {
+			super(loc, height, width, direction, tower, projectileImage);
+			r = width/2;
+			this.tower = tower;
 		}
+		
+		@Override
+		public void act() {
+			super.act();
+			if (!isOnScreen()) tower.removeProjectile(this);
+			if (collision() != null) tower.removeProjectile(this);
+
+		}
+		
 	}
 
 }

@@ -8,7 +8,7 @@ public abstract class Defense extends Structure {
 	protected int cost;
 	protected int range;
 	
-	protected Defense(Point gridLoc, Grid grid) {
+	protected Defense(Point gridLoc) {
 		super(gridLoc);
 		range = 5 * Grid.CELL_SIZE;
 	}
@@ -37,8 +37,8 @@ public abstract class Defense extends Structure {
 		return health;
 	}
 	
-	public ArrayList<Enemy> getEnemiesInProximity(List<Enemy> enemies) {
-		ArrayList<Enemy> close = new ArrayList<Enemy>();
+	public List<Enemy> getEnemiesInProximity(List<Enemy> enemies) {
+		List<Enemy> close = new ArrayList<Enemy>();
 		for (Enemy enemy: enemies) {
 			double dist = loc.distance(enemy.getLocation());
 			if (dist - range < .0001) {
