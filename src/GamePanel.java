@@ -40,17 +40,18 @@ public class GamePanel extends JPanel implements Runnable {
 	 * @param height the width of the GamePanel
 	 * @param frame the parent JFrame
 	 */
-	public GamePanel(JPanel mainPanel, int width, int height) {
+	public GamePanel(JPanel mainPanel, int width, int height, Player player) {
 		this.mainPanel = mainPanel;
 		setPreferredSize(new Dimension(width, height));
 		setBackground(Color.WHITE);
+		this.player = player;
 	
 		start();
-
 	}
 	
+//	public Player getPlayer() { return player; }
+	
 	protected void start() {
-		player = new Player(new Point2D.Double(Barrage.WIDTH / 2, Barrage.HEIGHT / 2));
 		final Nexus nexus = new Nexus(new Point(Grid.COLS / 2, Grid.ROWS / 2));
 		grid = new Grid(player, nexus);
 		grid.add(new Enemy(new Point2D.Double(100, 100), 10));
@@ -167,7 +168,7 @@ public class GamePanel extends JPanel implements Runnable {
 		@Override
 		public void mousePressed(MouseEvent e) {
 			player.setPointer(e.getPoint());
-			player.castSpell(player.getFireblast());
+			player.castSpell(player.getSpell());
 		}
 		
 		@Override

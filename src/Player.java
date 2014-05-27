@@ -22,9 +22,8 @@ public class Player extends Entity {
 	private boolean left, right, up, down;
 	private Point pointer;
 	private Image img;
-	private Fireblast fb;
-	private Iceblast ib;
-	private Teleport tp;
+	private Spell[] spells = {new Fireblast(), new Iceblast(), new Teleport()};
+	private Spell spell;
 	
 	public static final int MANA_REGEN = 1;
 	private long regenTime;
@@ -46,9 +45,7 @@ public class Player extends Entity {
 		regenTime = 0;
 		regenDelayTime = 150;
 		pointer = new Point((int) loc.x, (int) loc.y);
-		fb = new Fireblast();
-		ib = new Iceblast();
-		tp = new Teleport();
+		spell = spells[0];
 
 		try {
 			img = ImageIO.read(new File("wizard.png"));
@@ -63,19 +60,21 @@ public class Player extends Entity {
 	public void setDown(boolean b) { down = b; }
 	public void setPointer(Point p) { pointer = p; }
 	public void setMana(int m) { mana = m; }
+	public void setSpell(Spell s) { spell = s; }
 	
 	public int getMana() { return mana; }
 	public Point getPointer() { return pointer; }
 	public int getLives() { return lives; }
-	public Fireblast getFireblast() { return fb; }
-	public Iceblast getIceblast() { return ib; }
-	public Teleport getTeleport() { return tp; }
+	public Spell getSpell() { return spell; }
+	public Spell[] getSpells() { return spells; }
 	
 	/**
 	 * Moves the player 
 	 */
 	@Override
 	public void act() {
+		//System.out.println(spell);
+		
 		if (mana < 100 && System.currentTimeMillis() - regenTime >= regenDelayTime) {
 			mana += MANA_REGEN;
 			regenTime = System.currentTimeMillis();
