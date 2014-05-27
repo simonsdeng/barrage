@@ -2,23 +2,20 @@ import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.Point;
 import java.awt.geom.Point2D;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.ImageIcon;
 
 public class ArcherTower extends Defense {
 
-	public static final Image projectileImage = new ImageIcon("shuriken.gif").getImage();
+	public static final Image projectileImage = new ImageIcon("archertower.gif").getImage();
 	public static final Image icon = new ImageIcon("archertower.png").getImage();
 	
 	private static long time = 0;
 	private static int delayTime = 150;
-	private List<Projectile> projectiles;
 
 	public ArcherTower(Point gridLoc) {
 		super(gridLoc);
-		projectiles = new ArrayList<Projectile>();
 	}
 
 	@Override
@@ -40,9 +37,7 @@ public class ArcherTower extends Defense {
 	}
 	
 	private class Arrow extends Projectile {
-		private int r;
 		private ArcherTower tower;
-
 		
 		public Arrow(Point2D.Double loc, int height, int width, double direction,Grid grid, ArcherTower tower) {
 			super(loc, height, width, direction, tower, projectileImage);
@@ -53,9 +48,9 @@ public class ArcherTower extends Defense {
 		@Override
 		public void act() {
 			super.act();
+			System.out.println(loc);
 			if (!isOnScreen()) tower.removeProjectile(this);
 			if (collision() != null) tower.removeProjectile(this);
-
 		}
 		
 	}
