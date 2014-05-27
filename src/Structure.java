@@ -32,6 +32,6 @@ public abstract class Structure extends Entity {
 	}
 	
 	public double getDirectionTowards(Point2D.Double l){
-		return Math.tan((l.y - loc.y) / (l.x - loc.x));
+		return Math.atan2((l.y - loc.y) , (l.x - loc.x));
 	}
 }
