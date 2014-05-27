@@ -33,10 +33,8 @@ public class Enemy extends Entity {
 		if(health <= 0) 
 			alive = false;
 		
-		if(frozen && System.currentTimeMillis() - freezeTime >= freezeDelayTime) {
-			frozen = false;
-			System.out.println("UNFROZEN");
-		}
+		if(frozen && System.currentTimeMillis() - freezeTime >= freezeDelayTime) 
+			frozen = false;		
 	}
 	
 	public void freeze() {
