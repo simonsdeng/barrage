@@ -4,7 +4,7 @@ import java.awt.geom.Point2D;
 
 public class Enemy extends Entity {
 
-	private int speed;
+	private double speed;
 	private int health;
 	private int reward;
 	private boolean alive;
@@ -26,7 +26,7 @@ public class Enemy extends Entity {
 		freezeDelayTime = 0;
 		health = 100;
 		r = 20;
-		speed = 10;
+		speed = 1;
 	}
 	
 	@Override
@@ -54,8 +54,13 @@ public class Enemy extends Entity {
 	public void act() {
 		if (health <= 0) alive = false;
 		
-		if (frozen && System.currentTimeMillis() - freezeTime >= freezeDelayTime)
-			frozen = false;
+		if (frozen) {
+			if (System.currentTimeMillis() - freezeTime >= freezeDelayTime) {
+				frozen = false;
+			} else {
+				return;
+			}
+		}
 		
 		chooseTarget();
 		
@@ -77,8 +82,8 @@ public class Enemy extends Entity {
 	
 	private void moveTowards(Point2D.Double p) {
 		final double ang = Math.atan2(loc.y - p.y, p.x - loc.x);
-		loc.x += Math.cos(ang);
-		loc.y -= Math.sin(ang);
+		loc.x += Math.cos(ang) * speed;
+		loc.y -= Math.sin(ang) * speed;
 	}
 	
 	public int getReward() {
