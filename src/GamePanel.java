@@ -1,4 +1,5 @@
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
@@ -8,6 +9,7 @@ import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 
 import javax.swing.JFrame;
+import javax.swing.JPanel;
 
 /**
  * The main game view of Barrage
@@ -16,9 +18,12 @@ import javax.swing.JFrame;
  * @author Nikhil Ghosh
  */
 @SuppressWarnings("serial")
-public class GamePanel extends ViewPanel implements Runnable {
+public class GamePanel extends JPanel implements Runnable {
 
 	private static final int FPS = 30;
+	
+	public static final int WIDTH = 800;
+	public static final int HEIGHT = 600;
 	
 	private boolean running;
 	private Grid grid;
@@ -33,11 +38,13 @@ public class GamePanel extends ViewPanel implements Runnable {
 	 * @param frame the parent JFrame
 	 */
 	public GamePanel(JFrame frame, int width, int height) {
-		super(frame, width, height);
+		super();
+		requestFocus();
+		start();
+		setPreferredSize(new Dimension(width, height));
 		setBackground(Color.WHITE);
 	}
 	
-	@Override
 	protected void start() {
 		player = new Player(Barrage.WIDTH / 2, Barrage.HEIGHT / 2);
 		final Nexus nexus = new Nexus(Grid.COLS / 2, Grid.ROWS / 2);
@@ -97,7 +104,7 @@ public class GamePanel extends ViewPanel implements Runnable {
 		}
 	}
 	
-	@Override
+
 	protected void stop() {
 		running = false;
 	}
@@ -116,6 +123,7 @@ public class GamePanel extends ViewPanel implements Runnable {
 				player.setUp(true);
 				break;
 			case KeyEvent.VK_S:
+				System.out.println("works");
 				player.setDown(true);
 				break;
 			}
@@ -147,6 +155,7 @@ public class GamePanel extends ViewPanel implements Runnable {
 		
 		@Override
 		public void mousePressed(MouseEvent e) {
+
 			player.setPointer(e.getPoint());
 			player.castSpell(player.getFireblast());
 		}
