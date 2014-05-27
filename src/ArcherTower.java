@@ -12,7 +12,7 @@ public class ArcherTower extends Defense {
 	public static final Image icon = new ImageIcon("archertower.png").getImage();
 	
 	private static long time = 0;
-	private static int delayTime = 150;
+	private static int delayTime = 200;
 
 	public ArcherTower(Point gridLoc) {
 		super(gridLoc);
@@ -41,6 +41,7 @@ public class ArcherTower extends Defense {
 		public Arrow(Point2D.Double loc, int height, int width, double direction,Grid grid, ArcherTower tower) {
 			super(loc, height, width, direction, tower, projectileImage);
 			r = width/2;
+			velocity = 5;
 			this.tower = tower;
 		}
 		
