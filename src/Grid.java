@@ -225,7 +225,7 @@ public class Grid {
 		}
 		
 		protected void updatePath() {
-			path = getPathList(current, path.getLast());
+			if (!path.isEmpty()) path = getPathList(current, path.getLast());
 		}
 		
 		public Point getNext() {
