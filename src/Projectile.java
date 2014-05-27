@@ -61,5 +61,9 @@ public abstract class Projectile extends Entity {
 		
 		return null;
 	}
+	
+	public boolean isOnScreen() {
+		return loc.x >= r && loc.x <= Barrage.WIDTH - r && loc.y >= r && loc.y <= Barrage.HEIGHT - r;
+	}
 
 }

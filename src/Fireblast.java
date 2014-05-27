@@ -40,15 +40,10 @@ public class Fireblast implements Spell {
 	}
 	
 	private class FireblastProjectile extends Projectile {
-		private int r;
 		
 		public FireblastProjectile(Point2D.Double loc, int height, int width, double direction) {
 			super(loc, height, width, direction, player, img);
-			r = width/2;
-		}
-		
-		public boolean isOnScreen() {
-			return loc.x >= r && loc.x <= Barrage.WIDTH - r && loc.y >= r && loc.y <= Barrage.HEIGHT - r;
+			r = width / 2;
 		}
 		
 		@Override

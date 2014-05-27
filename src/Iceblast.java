@@ -49,15 +49,10 @@ public class Iceblast implements Spell {
 
 	
 	private class IceblastProjectile extends Projectile {
-		private int r;
 		
 		public IceblastProjectile(Point2D.Double loc, int height, int width, double direction) {
 			super(loc, height, width, direction, player, img);
-			r = width/2;
-		}
-		
-		public boolean isOnScreen() {
-			return loc.x >= r && loc.x <= Barrage.WIDTH - r && loc.y >= r && loc.y <= Barrage.HEIGHT - r;
+			r = width / 2;
 		}
 		
 		@Override
