@@ -8,7 +8,6 @@ import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.border.EtchedBorder;
 
-
 public class SpellPanel extends JPanel implements ActionListener {
 	
 	protected JButton b1, b2, b3;
@@ -42,6 +41,11 @@ public class SpellPanel extends JPanel implements ActionListener {
 		b1.setBorderPainted(false);
 		b2.setBorderPainted(false);
 		b3.setBorderPainted(false);
+		
+		setFocusable(false);
+		b1.setFocusable(false);
+		b2.setFocusable(false);
+		b3.setFocusable(false);
 		
 		add(b1);
 		add(b2);
