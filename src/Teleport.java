@@ -1,8 +1,8 @@
 import java.awt.Point;
-
+import java.awt.geom.Point2D;
 
 public class Teleport implements Spell {
-	
+
 	private int cost;
 	private long time;
 	private int delayTime;
@@ -13,27 +13,19 @@ public class Teleport implements Spell {
 		time = 0;
 		delayTime = 300;
 	}
-
+	
 	@Override
 	public void cast(Entity e) {
-		if(player == null)
+		if (player == null)
 			player = (Player) e;
 		
-		if(System.currentTimeMillis() - time >= delayTime) {
-			Point p = player.getPointer();
+		if (System.currentTimeMillis() - time >= delayTime) {
+			final Point p = player.getPointer(); 
+			final Point cell = Grid.getContainingCell(new Point2D.Double(p.x, p.y));
 			
-			boolean clear = true;
-			for(Entity ge : player.getGrid().getEntities()) {
-				if(Math.hypot(ge.getX() - p.getX(), ge.getY() - p.getY()) <= ge.getRadius()) {
-					clear = false;
-					break;
-				}			
+			if (player.getGrid().getEntityGrid()[cell.x][cell.y]) {
+				player.setLocation(new Point2D.Double());
 			}
-			
-			if(clear) {
-				player.setX(p.x);
-				player.setY(p.y);
-			}	
 				
 			time = System.currentTimeMillis();
 		}

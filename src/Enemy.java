@@ -1,4 +1,5 @@
 import java.awt.Graphics2D;
+import java.awt.geom.Point2D;
 
 public class Enemy extends Entity {
 
@@ -9,10 +10,9 @@ public class Enemy extends Entity {
 	private long freezeTime;
 	private int freezeDelayTime;
 
-	protected Enemy(int x, int y, int reward, Grid grid) {
-		super(x, y);
+	public Enemy(Point2D.Double loc, int reward) {
+		super(loc);
 		this.reward = reward;
-		this.grid = grid;
 		alive = true;
 		frozen = false;
 		freezeTime = 0;
@@ -24,7 +24,7 @@ public class Enemy extends Entity {
 	
 	@Override
 	public void draw(Graphics2D g) {
-		g.fillOval((int)(x - r), (int)(y - r), 2*r, 2*r);
+		g.fillOval((int) (loc.x - r), (int) (loc.y - r), 2 * r, 2 * r);
 	}
 
 	@Override

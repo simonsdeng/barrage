@@ -1,4 +1,5 @@
 import java.awt.Point;
+import java.awt.geom.Point2D;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -41,12 +42,17 @@ public class Grid {
 		add(nexus);
 	}
 	
-	public static Point getCellCenter(int gridX, int gridY) {
-		return new Point((2 * gridX + 1) * Grid.CELL_SIZE / 2, (2 * gridY + 1) * Grid.CELL_SIZE / 2);
+	public static Point2D.Double getCellCenter(Point gridLoc) {
+		return new Point2D.Double((2 * gridLoc.x + 1) * CELL_SIZE / 2.0,
+				(2 * gridLoc.y + 1) * CELL_SIZE / 2.0);
 	}
 	
 	public static Point getContainingCell(Entity e) {
-		return new Point((int)(e.getX() / CELL_SIZE), (int)(e.getY() / CELL_SIZE));
+		return getContainingCell(e.getLocation());
+	}
+	
+	public static Point getContainingCell(Point2D.Double loc) {
+		return new Point((int) loc.x / CELL_SIZE, (int) loc.y / CELL_SIZE);
 	}
 	
 	public Player getPlayer() {
@@ -99,6 +105,7 @@ public class Grid {
 	
 	public final void add(Entity entity) {
 		entities.add(entity);
+		entity.setGrid(this);
 		updateEntities();
 	}
 	
@@ -138,7 +145,8 @@ public class Grid {
 		for (boolean[] r : structureGrid) Arrays.fill(r, false);
 		
 		for (Structure s : structures) {
-			structureGrid[s.getGridX()][s.getGridY()] = true;
+			final Point gridLoc = s.getGridLocation(); 
+			structureGrid[gridLoc.x][gridLoc.y] = true;
 		}
 	}
 	

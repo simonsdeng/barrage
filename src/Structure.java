@@ -1,4 +1,6 @@
 import java.awt.Image;
+import java.awt.Point;
+import java.awt.geom.Point2D;
 
 /**
  * @author Vikram Idury
@@ -8,8 +10,7 @@ import java.awt.Image;
  */
 public abstract class Structure extends Entity {
 
-	protected int gridX;
-	protected int gridY;
+	protected Point gridLoc;
 	protected Image img;
 
 	/**
@@ -21,21 +22,16 @@ public abstract class Structure extends Entity {
 	 * @param img
 	 *            image that defines appearance of the structure
 	 */
-	public Structure(int gridX, int gridY) {
-		super((2 * gridX + 1) * Grid.CELL_SIZE / 2, (2 * gridY + 1) * Grid.CELL_SIZE / 2);
-		this.gridX = gridX;
-		this.gridY = gridY;
+	protected Structure(Point gridLoc) {
+		super(Grid.getCellCenter(gridLoc));
+		this.gridLoc = gridLoc;
 	}
 
-	public int getGridX() {
-		return gridX;
-	}
-
-	public int getGridY() {
-		return gridY;
+	public Point getGridLocation() {
+		return gridLoc;
 	}
 	
-	public double getDirectionTowards(int x, int y){
-		return Math.tan((y - getY())/ (x - getX()));
+	public double getDirectionTowards(Point2D.Double l){
+		return Math.tan((l.y - loc.y) / (l.x - loc.x));
 	}
 }
