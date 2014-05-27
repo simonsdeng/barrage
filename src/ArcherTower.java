@@ -10,7 +10,9 @@ public class ArcherTower extends Defense {
 
 	public static final Image icon = new ImageIcon("archertower.png").getImage();
 	
-	private Grid grid;
+	private final Grid grid;
+	private static long time = 0;
+	private static int delayTime = 150;
 	private List<Projectile> projectiles;
 
 	public ArcherTower(int gridX, int gridY, Grid grid) {
@@ -27,19 +29,38 @@ public class ArcherTower extends Defense {
 	@Override
 	public void act() {
 		List<Enemy> proximity = getEnemiesInProximity(grid.getEnemies());
-
-		if (proximity.size() > 0){
+		if (proximity.size() > 0 && System.currentTimeMillis() - time >= delayTime){
 			Enemy target = proximity.get((int)(Math.random() * proximity.size()));
 			double dir = getDirectionTowards((int)target.getX(), (int)target.getY());
+			addProjectile(new Arrow((int)getX(), (int)getY(), 10, 10, dir,grid,this));
+
 		}
-//		projectiles.add(new Projectile(getX() + Structure.GRID_SIZE/2, getY() + Structure.GRID_SIZE/2, 10, 10, dir,))
-		for (int i = 0; i < projectiles.size(); i++){
-			Projectile p = projectiles.get(i);
-//			if (!p.isActive()){ // Change this according to inactive projectile detection
-//				projectiles.remove(i);
-//			}
-			p.act();
+		time = System.currentTimeMillis();
+
+	}
+	
+	private class Arrow extends Projectile {
+		private int r;
+		private ArcherTower tower;
+		
+		public Arrow(int x, int y, int height, int width, double direction,Grid grid, ArcherTower tower) {
+			super(x, y, height, width, direction, grid, tower, img);
+			r = width/2;
+			this.tower = tower;
 		}
+		
+		public boolean isOnScreen() {
+			return getX() >= r && getX() <= Barrage.WIDTH - r && getY() >= r && getY() <= Barrage.HEIGHT - r;
+		}
+		
+		@Override
+		public void act() {
+			super.act();
+			if(!isOnScreen())
+				tower.removeProjectile(this);
+
+		}
+		
 	}
 
 }
