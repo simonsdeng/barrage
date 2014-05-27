@@ -8,6 +8,7 @@ import javax.swing.ImageIcon;
 
 public class ArcherTower extends Defense {
 
+	public static final Image projectileImage = new ImageIcon("shuriken.gif").getImage();
 	public static final Image icon = new ImageIcon("archertower.png").getImage();
 	
 	private final Grid grid;
@@ -30,6 +31,8 @@ public class ArcherTower extends Defense {
 	public void act() {
 		List<Enemy> proximity = getEnemiesInProximity(grid.getEnemies());
 		if (proximity.size() > 0 && System.currentTimeMillis() - time >= delayTime){
+
+
 			Enemy target = proximity.get((int)(Math.random() * proximity.size()));
 			double dir = getDirectionTowards((int)target.getX(), (int)target.getY());
 			addProjectile(new Arrow((int)getX(), (int)getY(), 10, 10, dir,grid,this));
@@ -42,9 +45,10 @@ public class ArcherTower extends Defense {
 	private class Arrow extends Projectile {
 		private int r;
 		private ArcherTower tower;
+
 		
 		public Arrow(int x, int y, int height, int width, double direction,Grid grid, ArcherTower tower) {
-			super(x, y, height, width, direction, grid, tower, img);
+			super(x, y, height, width, direction, grid, tower, projectileImage);
 			r = width/2;
 			this.tower = tower;
 		}
@@ -58,6 +62,8 @@ public class ArcherTower extends Defense {
 			super.act();
 			if(!isOnScreen())
 				tower.removeProjectile(this);
+			if(collision())
+				tower	.removeProjectile(this);
 
 		}
 		

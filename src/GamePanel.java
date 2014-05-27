@@ -45,20 +45,21 @@ public class GamePanel extends JPanel implements Runnable {
 		this.parent = frame;
 		setPreferredSize(new Dimension(width, height));
 		setBackground(Color.WHITE);
-		requestFocusInWindow();
-		frame.invalidate();
-		frame.validate();
-		frame.pack();
+	
 		start();
 
 	}
 	
 	protected void start() {
+		requestFocusInWindow();
+
 		player = new Player(Barrage.WIDTH / 2, Barrage.HEIGHT / 2);
 		final Nexus nexus = new Nexus(Grid.COLS / 2, Grid.ROWS / 2);
 		grid = new Grid(player, nexus);
 		player.setGrid(grid);
 		grid.add(new Enemy(100, 100, 10, grid));
+		
+		grid.add(new ArcherTower(5, 5, grid));
 		
 		final GameListener listener = new GameListener();
 		parent.addKeyListener(listener);
