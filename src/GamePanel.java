@@ -29,6 +29,8 @@ public class GamePanel extends JPanel implements Runnable {
 	private Grid grid;
 	private Player player;
 	
+	private JFrame parent;
+	
 	
 	/**
 	 * Creates a new GamePanel with the specified width and height
@@ -39,10 +41,16 @@ public class GamePanel extends JPanel implements Runnable {
 	 */
 	public GamePanel(JFrame frame, int width, int height) {
 		super();
-		requestFocus();
-		start();
+		frame.setContentPane(this);
+		this.parent = frame;
 		setPreferredSize(new Dimension(width, height));
 		setBackground(Color.WHITE);
+		requestFocusInWindow();
+		frame.invalidate();
+		frame.validate();
+		frame.pack();
+		start();
+
 	}
 	
 	protected void start() {
@@ -53,9 +61,9 @@ public class GamePanel extends JPanel implements Runnable {
 		grid.add(new Enemy(100, 100, 10, grid));
 		
 		final GameListener listener = new GameListener();
-		addKeyListener(listener);
-		addMouseListener(listener);
-		addMouseMotionListener(listener);
+		parent.addKeyListener(listener);
+		parent.addMouseListener(listener);
+		parent.addMouseMotionListener(listener);
 		
 		new Thread(this).start();
 	}
