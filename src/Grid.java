@@ -15,8 +15,8 @@ import java.util.concurrent.CopyOnWriteArrayList;
 public class Grid {
 
 	public static int CELL_SIZE = 40;
-	public static int COLS = (Barrage.WIDTH - 1) / CELL_SIZE + 1;
-	public static int ROWS = (Barrage.HEIGHT - 1) / CELL_SIZE + 1;
+	public static int COLS = (GamePanel.WIDTH - 1) / CELL_SIZE + 1;
+	public static int ROWS = (GamePanel.HEIGHT - 1) / CELL_SIZE + 1;
 	
 	private Player player;
 	private Nexus nexus;
