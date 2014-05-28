@@ -51,7 +51,7 @@ public class SpellPanel extends JPanel implements ActionListener {
 		add(b2);
 		add(b3);
 		
-		setPreferredSize(new Dimension(GamePanel.WIDTH, 100));
+		setPreferredSize(new Dimension(GamePanel.WIDTH, 60));
 		setBackground(Color.BLACK);
 	}
 	
@@ -61,13 +61,13 @@ public class SpellPanel extends JPanel implements ActionListener {
 		if("Fireblast".equals(e.getActionCommand())) {
 			b1.setBorderPainted(true);
 			b2.setBorderPainted(false);
-			b2.setBorderPainted(false);
+			b3.setBorderPainted(false);
 			player.setSpell(player.getSpells()[0]);
 		}
 		else if("Iceblast".equals(e.getActionCommand())) {
 			b1.setBorderPainted(false);
 			b2.setBorderPainted(true);
-			b2.setBorderPainted(false);
+			b3.setBorderPainted(false);
 			player.setSpell(player.getSpells()[1]);		
 		}
 		else {
