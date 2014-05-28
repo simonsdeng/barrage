@@ -10,7 +10,7 @@ public abstract class Defense extends Structure {
 	
 	protected Defense(Point gridLoc) {
 		super(gridLoc);
-		range = 5 * Grid.CELL_SIZE;
+		range = 3 * Grid.CELL_SIZE;
 	}
 	
 	public void setRange(int range) {

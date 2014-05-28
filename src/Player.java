@@ -106,7 +106,6 @@ public class Player extends Entity {
 	public void castSpell(Spell s) {
 		if(mana - s.getCost() >= 0) {
 			s.cast(this);
-			mana -= s.getCost();
 		}
 	}
 	

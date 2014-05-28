@@ -25,6 +25,7 @@ public class Teleport implements Spell {
 			
 			if (player.getGrid().getEntityGrid()[cell.x][cell.y]) {
 				player.setLocation(new Point2D.Double());
+				player.setMana(player.getMana() - cost);
 			}
 				
 			time = System.currentTimeMillis();

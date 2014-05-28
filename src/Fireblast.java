@@ -25,6 +25,7 @@ public class Fireblast implements Spell {
 	
 	public void cast(Entity e) {
 		if (player == null) player = (Player) e;
+		player.setMana(player.getMana() - cost);
 		
 		if (System.currentTimeMillis() - time >= delayTime) {
 			Point p = player.getPointer();

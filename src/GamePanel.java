@@ -45,8 +45,6 @@ public class GamePanel extends JPanel implements Runnable {
 		setPreferredSize(new Dimension(width, height));
 		setBackground(Color.WHITE);
 		this.player = player;
-	
-		start();
 	}
 	
 //	public Player getPlayer() { return player; }
@@ -88,6 +86,9 @@ public class GamePanel extends JPanel implements Runnable {
 		final Graphics2D g2d = (Graphics2D) g;
 		
 		if (running) {
+			g2d.setColor(Color.RED);
+			g2d.drawString("MANA: " + player.getMana(), 20, 20);
+			g2d.setColor(Color.BLACK);
 			for (Entity e : grid.getEntities()) {
 				e.draw(g2d);
 				for (Projectile p : e.getProjectiles()) p.draw(g2d);

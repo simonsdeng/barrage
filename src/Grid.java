@@ -31,10 +31,10 @@ public class Grid {
 	public Grid(Player player, Nexus nexus) {
 		this.player = player;
 		this.nexus = nexus;
-		enemies = new ArrayList<Enemy>();
-		defenses = new ArrayList<Defense>();
-		entities = new ArrayList<Entity>();
-		structures = new ArrayList<Structure>();
+		enemies = new CopyOnWriteArrayList<Enemy>();
+		defenses = new CopyOnWriteArrayList<Defense>();
+		entities = new CopyOnWriteArrayList<Entity>();
+		structures = new CopyOnWriteArrayList<Structure>();
 		entityGrid = new boolean[COLS][ROWS];
 		structureGrid = new boolean[COLS][ROWS];
 		activePaths = new CopyOnWriteArrayList<Path>();
@@ -215,7 +215,6 @@ public class Grid {
 	}
 	
 	public class Path {
-		
 		private LinkedList<Point> path;
 		private Point current;
 		
@@ -238,7 +237,6 @@ public class Grid {
 			
 			return path.remove();
 		}
-		
 	}
 
 }
