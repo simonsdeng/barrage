@@ -18,14 +18,13 @@ public class Teleport implements Spell {
 	public void cast(Entity e) {
 		if (player == null)
 			player = (Player) e;
-		
 		if (System.currentTimeMillis() - time >= delayTime) {
 			final Point p = player.getPointer(); 
 			final Point cell = Grid.getContainingCell(new Point2D.Double(p.x, p.y));
 			
-			if (player.getGrid().getEntityGrid()[cell.x][cell.y]) {
-				player.setLocation(new Point2D.Double());
-				player.setMana(player.getMana() - cost);
+			if (!player.getGrid().getEntityGrid()[cell.x][cell.y] && player.getMana() >= cost) {
+				player.setLocation(new Point2D.Double(p.getX(), p.getY()));
+					player.setMana(player.getMana() - cost);
 			}
 				
 			time = System.currentTimeMillis();
