@@ -17,25 +17,27 @@ public class DefensePanel extends JPanel implements ActionListener{
 	private Grid grid;
 	
 	protected JButton b1, b2, b3;
+	
+	private String lastAction;
 
 	public DefensePanel(Player player){
 		grid = player.getGrid();
-		ImageIcon archerTower = new ImageIcon("archertower.png");
-		archerTower = new ImageIcon(archerTower.getImage().getScaledInstance( 50, 50,  java.awt.Image.SCALE_SMOOTH ));
-		ImageIcon quakeTower = new ImageIcon("quaketower.png");
-		quakeTower = new ImageIcon(quakeTower.getImage().getScaledInstance( 50, 50,  java.awt.Image.SCALE_SMOOTH ));
+		ImageIcon archerTower = new ImageIcon("archertowericon.png");
+		archerTower = new ImageIcon(archerTower.getImage().getScaledInstance(80, 80,  java.awt.Image.SCALE_SMOOTH ));
+		ImageIcon quakeTower = new ImageIcon("quaketowericon.png");
+		quakeTower = new ImageIcon(quakeTower.getImage().getScaledInstance(80,80,  java.awt.Image.SCALE_SMOOTH ));
 	
 		
 		b1 = new JButton(archerTower);
 		b1.setActionCommand("ArcherTower");
 		b1.setBorder(new EtchedBorder());
-		b1.setBackground(Color.BLACK);
+		b1.setPreferredSize(new Dimension(80, 80));
+		
 		
 		b2 = new JButton(quakeTower);
-		b2.setBackground(Color.BLACK);
 		b2.setActionCommand("QuakeTower");
 		b2.setBorder(new EtchedBorder());
-		
+		b2.setPreferredSize(new Dimension(80, 80));
 	
 		
 		b1.addActionListener(this);
@@ -58,15 +60,21 @@ public class DefensePanel extends JPanel implements ActionListener{
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		String action = e.getActionCommand();
-		if("ArcherTower".equals(action)) {
+		if (action.equals(lastAction)){
+			b1.setBorderPainted(false);
+			b2.setBorderPainted(false);
+			lastAction = "reset";
+		}
+		else if("ArcherTower".equals(action)) {
 			b1.setBorderPainted(true);
 			b2.setBorderPainted(false);
+			lastAction = action;
 		}
 		else if("QuakeTower".equals(action)) {
 			b1.setBorderPainted(false);
 			b2.setBorderPainted(true);
-	
+			lastAction = action;
 		}
-		
+
 	}
 }

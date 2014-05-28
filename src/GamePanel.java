@@ -30,6 +30,8 @@ public class GamePanel extends JPanel implements Runnable {
 	private Grid grid;
 	private Player player;
 	
+	private boolean placingTower = false;
+	
 	private JPanel mainPanel;
 	
 	
@@ -46,6 +48,8 @@ public class GamePanel extends JPanel implements Runnable {
 		setBackground(Color.WHITE);
 		this.player = player;
 	}
+	
+	
 	
 //	public Player getPlayer() { return player; }
 	
@@ -118,6 +122,10 @@ public class GamePanel extends JPanel implements Runnable {
 		}
 	}
 	
+	public void setPlacingTower(boolean placingTower){
+		this.placingTower = placingTower;
+	}
+	
 
 	protected void stop() {
 		running = false;
@@ -169,7 +177,11 @@ public class GamePanel extends JPanel implements Runnable {
 		@Override
 		public void mousePressed(MouseEvent e) {
 			player.setPointer(e.getPoint());
-			player.castSpell(player.getSpell());
+			if (!placingTower)
+				player.castSpell(player.getSpell());
+			else {
+				
+			}
 		}
 		
 		@Override

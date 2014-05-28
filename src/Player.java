@@ -18,6 +18,7 @@ public class Player extends Entity {
 	private int width, height;
 	private int speed;
 	private int lives;
+	private int gold;
 	private int mana;
 	private boolean left, right, up, down;
 	private Point pointer;
@@ -39,6 +40,7 @@ public class Player extends Entity {
 		super(loc);
 		width = 100;
 		height = 100;
+		gold = 100;
 		speed = 7;
 		lives = 3;
 		mana = 100;
@@ -108,6 +110,7 @@ public class Player extends Entity {
 			s.cast(this);
 		}
 	}
+	
 	
 	
 	/**
