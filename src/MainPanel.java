@@ -20,7 +20,7 @@ public class MainPanel extends ViewPanel {
 		spanel = new SpellPanel(player);
 		
 		add(gpanel, BorderLayout.CENTER);
-		add(spanel, BorderLayout.NORTH);
+		add(spanel, BorderLayout.SOUTH);
 	}
 
 	@Override

@@ -51,7 +51,7 @@ public class SpellPanel extends JPanel implements ActionListener {
 		add(b2);
 		add(b3);
 		
-		setPreferredSize(new Dimension(GamePanel.WIDTH, 100));
+		setPreferredSize(new Dimension(GamePanel.WIDTH, 60));
 		setBackground(Color.BLACK);
 	}
 	
