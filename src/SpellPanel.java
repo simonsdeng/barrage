@@ -38,7 +38,7 @@ public class SpellPanel extends JPanel implements ActionListener {
 		b2.addActionListener(this);
 		b3.addActionListener(this);
 		
-		b1.setBorderPainted(false);
+		b1.setBorderPainted(true);
 		b2.setBorderPainted(false);
 		b3.setBorderPainted(false);
 		
