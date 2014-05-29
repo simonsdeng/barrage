@@ -69,6 +69,7 @@ public class Enemy extends Entity {
 		if (health <= 0){
 			grid.remove(this);
 			player.setGold(player.getGold() + reward);
+			player.setKills(player.getKills() + 1);
 		}
 		
 		if (frozen) {

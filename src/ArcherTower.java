@@ -13,12 +13,13 @@ public class ArcherTower extends Defense {
 	public static final Image icon = new ImageIcon("archertower.png")
 			.getImage();
 
+	public static final int COST = 50;
 	private long time = 0;
 	private int delayTime = 500;
 
 	public ArcherTower(Point gridLoc) {
 		super(gridLoc);
-		setCost(50);
+		setCost(COST);
 	}
 
 	@Override

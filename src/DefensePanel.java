@@ -22,7 +22,7 @@ public class DefensePanel extends JPanel implements ActionListener{
 	public static final int QUAKE_TOWER = 2;
 	
 	private JLabel[] labels;
-	
+	private JLabel costLabel;
 	protected JButton b1, b2, b3;
 	
 	private String lastAction;
@@ -35,7 +35,7 @@ public class DefensePanel extends JPanel implements ActionListener{
 		ImageIcon quakeTower = new ImageIcon("quaketowericon.png");
 		quakeTower = new ImageIcon(quakeTower.getImage().getScaledInstance(80,80,  java.awt.Image.SCALE_SMOOTH ));
 		
-		labels = new JLabel[3];
+		labels = new JLabel[4];
 
 		labels[0] = new JLabel("Health: " + player.getLives());
 		labels[0].setForeground(Color.RED);
@@ -43,6 +43,8 @@ public class DefensePanel extends JPanel implements ActionListener{
 		labels[1].setForeground(Color.CYAN);
 		labels[2] = new JLabel("Gold: " + player.getGold());
 		labels[2].setForeground(Color.YELLOW);
+		labels[3] = new JLabel("Kills: " + player.getKills());
+		labels[3].setForeground(Color.WHITE);
 		
 		for (JLabel label: labels){
 			label.setFont(new Font("Serif", Font.PLAIN, 18));
@@ -77,6 +79,11 @@ public class DefensePanel extends JPanel implements ActionListener{
 
 		setPreferredSize(new Dimension(100, GamePanel.HEIGHT));
 		setBackground(Color.BLACK);
+		
+		costLabel = new JLabel();
+		costLabel.setFont(new Font("Serif", Font.PLAIN, 18));
+		costLabel.setForeground(Color.WHITE);
+		add(costLabel);
 	}
 	
 	public void updateLabels(){
@@ -84,6 +91,7 @@ public class DefensePanel extends JPanel implements ActionListener{
 		labels[0].setText("Health: " + player.getLives());
 		labels[1].setText("Mana: " + player.getMana());
 		labels[2].setText("Gold: " + player.getGold());
+		labels[3].setText("Kills: " + player.getKills());
 	}
 
 	@Override
@@ -94,6 +102,7 @@ public class DefensePanel extends JPanel implements ActionListener{
 			b1.setBorderPainted(false);
 			b2.setBorderPainted(false);
 			player.setPlacingDefense(false);
+			costLabel.setText("");
 			lastAction = "reset";
 		}
 		else if("ArcherTower".equals(action)) {
@@ -101,6 +110,8 @@ public class DefensePanel extends JPanel implements ActionListener{
 			b2.setBorderPainted(false);
 			lastAction = action;
 			player.setActiveDefense(ARCHER_TOWER);
+			costLabel.setText("Cost " + ArcherTower.COST);
+
 			player.setPlacingDefense(true);
 		}
 		else if("QuakeTower".equals(action)) {
@@ -108,6 +119,7 @@ public class DefensePanel extends JPanel implements ActionListener{
 			b2.setBorderPainted(true);
 			lastAction = action;
 			player.setActiveDefense(QUAKE_TOWER);
+			costLabel.setText("Cost " + QuakeTower.COST);
 			player.setPlacingDefense(true);
 		}
 

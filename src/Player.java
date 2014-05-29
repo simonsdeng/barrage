@@ -27,6 +27,7 @@ public class Player extends Entity {
 	private Image img;
 	private Spell[] spells = {new Fireblast(), new Iceblast(), new Teleport()};
 	private Spell spell;
+	private int kills;
 	
 	public static final int MANA_REGEN = 1;
 	public static final int HEALTH_REGEN = 2;
@@ -45,6 +46,7 @@ public class Player extends Entity {
 		width = 50;
 		height = 50;
 		gold = 100;
+		kills = 0;
 		speed = 7;
 		health = 100;
 		mana = 100;
@@ -76,6 +78,9 @@ public class Player extends Entity {
 	public Spell[] getSpells() { return spells; }
 	public int getGold(){return gold;}
 	public void setGold(int amount){gold = amount;}
+	
+	public int getKills(){return kills;}
+	public void setKills(int amount){this.kills = amount;}
 	
 	public boolean isPlacingDefense(){return placingDefense;}
 	public void setPlacingDefense(boolean placingDefense){this.placingDefense = placingDefense;}
