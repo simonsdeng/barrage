@@ -182,8 +182,11 @@ public class Grid {
 			
 			for (int x = Math.max(0, p.x - 1), xMax = Math.min(p.x + 2, COLS); x < xMax; x++) {
 				for (int y = Math.max(0, p.y - 1), yMax = Math.min(p.y + 2, ROWS); y < yMax; y++) {
-					if (x == p.x && y == p.y
-							|| structureGrid[x][y] && (x != to.x || y != to.y)) continue;
+					if (x == p.x && y == p.y) continue;
+					if (structureGrid[x][y] && (x != to.x || y != to.y)) continue;
+					
+					// prevent diagonal turns around obstacles
+					if (x != p.x && y != p.y && (structureGrid[x][p.y] || structureGrid[p.x][y])) continue;
 					
 					final Point next = new Point(x, y);
 					final double tmpCost = cost[p.x][p.y] + p.distance(next);
