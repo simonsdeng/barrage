@@ -85,14 +85,18 @@ public class Enemy extends Entity {
 		
 		chooseTarget();
 		
-		if (Grid.getContainingCell(this).equals(waypoint)) {
+		final Point currentCell = Grid.getContainingCell(this);
+		
+		if (currentCell.equals(waypoint)) {
 			waypoint = path.getNext();
 		}
 		
-		if (waypoint != null) {
+		if (!currentCell.equals(waypoint)) {
 			moveTowards(Grid.getCellCenter(waypoint));
-		} else {
+		} else if (loc.distance(target.getLocation()) > r + target.getRadius()) {
 			moveTowards(target.getLocation());
+		} else {
+			target.setHealth(target.getHealth() - 1);
 		}
 	}
 	
