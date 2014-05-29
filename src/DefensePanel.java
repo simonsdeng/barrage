@@ -124,6 +124,15 @@ public class DefensePanel extends JPanel implements ActionListener{
 		}
 
 	}
+
+	public void deselectDefenses() {
+		b1.setBorderPainted(false);
+		b2.setBorderPainted(false);
+		player.setPlacingDefense(false);
+		costLabel.setText("");
+		lastAction = "reset";
+		
+	}
 	
 
 	

@@ -208,6 +208,7 @@ public class GamePanel extends JPanel implements Runnable {
 				} else if (defense == DefensePanel.QUAKE_TOWER){
 					placeDefense(new QuakeTower(Grid.getContainingCell(point)));
 				}
+				mainPanel.deselectDefenes();
 			}
 		}
 		

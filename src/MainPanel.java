@@ -34,6 +34,9 @@ public class MainPanel extends ViewPanel {
 	protected void updatePanels(){
 		dpanel.updateLabels();
 	}
+	protected void deselectDefenes(){
+		dpanel.deselectDefenses();
+	}
 	
 
 	@Override
