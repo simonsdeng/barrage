@@ -33,7 +33,6 @@ public class GamePanel extends JPanel implements Runnable {
 	
 	private MainPanel mainPanel;
 	
-	
 	/**
 	 * Creates a new GamePanel with the specified width and height
 	 * 
@@ -172,6 +171,15 @@ public class GamePanel extends JPanel implements Runnable {
 				break;
 			case KeyEvent.VK_S:
 				player.setDown(true);
+				break;
+			case KeyEvent.VK_1:
+				mainPanel.getSpellPanel().setSpell("Fireblast");
+				break;
+			case KeyEvent.VK_2:
+				mainPanel.getSpellPanel().setSpell("Iceblast");
+				break;
+			case KeyEvent.VK_3:
+				mainPanel.getSpellPanel().setSpell("Teleport");
 				break;
 			}
 		}

@@ -64,29 +64,31 @@ public class SpellPanel extends JPanel implements ActionListener {
 		setBackground(Color.BLACK);
 	}
 	
-
-	@Override
-	public void actionPerformed(ActionEvent e) {
-		if("Fireblast".equals(e.getActionCommand())) {
+	public void setSpell(String name) {
+		if (name.equals("Fireblast")) {
 			b1.setBorderPainted(true);
 			b2.setBorderPainted(false);
 			b3.setBorderPainted(false);
+			player.setSpell(player.getSpells()[0]);	
 			costLabel.setText("Cost: " + "Free");
-		}
-		else if("Iceblast".equals(e.getActionCommand())) {
+		} else if (name.equals("Iceblast")) {
 			b1.setBorderPainted(false);
 			b2.setBorderPainted(true);
 			b3.setBorderPainted(false);
 			player.setSpell(player.getSpells()[1]);	
 			costLabel.setText("Cost: " + player.getSpells()[1].getCost());
-		}
-		else {
+		} else {
 			b1.setBorderPainted(false);
 			b2.setBorderPainted(false);
 			b3.setBorderPainted(true);
 			player.setSpell(player.getSpells()[2]);
 			costLabel.setText("Cost: " + player.getSpells()[2].getCost());
 		}
+	}
+	
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		setSpell(e.getActionCommand());
 	}
 
 

@@ -22,8 +22,6 @@ public class MainPanel extends ViewPanel {
 	    gpanel = new GamePanel(this, GamePanel.WIDTH, GamePanel.HEIGHT, player);
 		spanel = new SpellPanel(player);
 		dpanel = new DefensePanel(player);
-
-
 		
 		add(gpanel, BorderLayout.CENTER);
 		add(spanel, BorderLayout.SOUTH);
@@ -38,17 +36,18 @@ public class MainPanel extends ViewPanel {
 		dpanel.deselectDefenses();
 	}
 	
-
+	public SpellPanel getSpellPanel() {
+		return spanel;
+	}
+	
 	@Override
 	protected void start() {
 		gpanel.start();
 	}
-
+	
 	@Override
 	protected void stop() {
 		gpanel.stop();
 	}
-	
-	
 
 }
