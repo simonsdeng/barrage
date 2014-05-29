@@ -44,14 +44,14 @@ public class GamePanel extends JPanel implements Runnable {
 	public GamePanel(JPanel mainPanel, int width, int height, Player player) {
 		this.mainPanel = mainPanel;
 		setPreferredSize(new Dimension(width, height));
-		setBackground(Color.WHITE);
+		setBackground(new Color(238, 238, 238));
 		this.player = player;
 	}
 	
 //	public Player getPlayer() { return player; }
 	
 	protected void start() {
-		final Nexus nexus = new Nexus(new Point(Grid.COLS / 2, Grid.ROWS / 2));
+		final Nexus nexus = new Nexus(new Point(Grid.COLS / 2-1, Grid.ROWS / 2-1));
 		grid = new Grid(player, nexus);
 		grid.add(new Enemy(new Point2D.Double(100, 100), 50));
 		
@@ -73,7 +73,7 @@ public class GamePanel extends JPanel implements Runnable {
 	}
 	
 	private void update() {
-		if (Math.random() < .05) spawnEnemy();
+		if (Math.random() < .02) spawnEnemy();
 		
 		for (Entity e : grid.getEntities()) {
 			e.act();

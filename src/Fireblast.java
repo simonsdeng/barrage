@@ -16,7 +16,7 @@ public class Fireblast implements Spell {
 	
 	public Fireblast() {
 		cost = 0;
-		damage = 10;
+		damage = 20;
 		time = 0;
 		delayTime = 150;
 	}

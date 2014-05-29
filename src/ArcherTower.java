@@ -12,7 +12,7 @@ public class ArcherTower extends Defense {
 	public static final Image icon = new ImageIcon("archertower.png").getImage();
 	
 	private long time = 0;
-	private int delayTime = 200;
+	private int delayTime = 500;
 
 	public ArcherTower(Point gridLoc) {
 		super(gridLoc);
