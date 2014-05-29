@@ -11,6 +11,8 @@ import java.awt.event.MouseMotionListener;
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
 
+import javax.swing.JDialog;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 /**
@@ -79,7 +81,7 @@ public class GamePanel extends JPanel implements Runnable {
 		}
 		
 		if (grid.getPlayer().getHealth() <= 0 || grid.getNexus().getHealth() <= 0) {
-			System.out.println("You lose!");
+			JOptionPane.showMessageDialog(this, "You lose!");
 			stop();
 		}
 		
