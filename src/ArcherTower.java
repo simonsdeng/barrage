@@ -11,8 +11,8 @@ public class ArcherTower extends Defense {
 	public static final Image projectileImage = new ImageIcon("shuriken.gif").getImage();
 	public static final Image icon = new ImageIcon("archertower.png").getImage();
 	
-	private static long time = 0;
-	private static int delayTime = 200;
+	private long time = 0;
+	private int delayTime = 200;
 
 	public ArcherTower(Point gridLoc) {
 		super(gridLoc);
@@ -27,12 +27,14 @@ public class ArcherTower extends Defense {
 
 	@Override
 	public void act() {
+
 		List<Enemy> proximity = getEnemiesInProximity(grid.getEnemies());
 		if (proximity.size() > 0 && System.currentTimeMillis() - time >= delayTime){
 			Enemy target = proximity.get((int)(Math.random() * proximity.size()));
 			double dir = getDirectionTowards(target.getLocation());
 			addProjectile(new Arrow(new Point2D.Double(loc.x, loc.y), 10, 10, dir,grid,this));
 			time = System.currentTimeMillis();
+
 		}
 	}
 	

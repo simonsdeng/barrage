@@ -63,7 +63,7 @@ public class GamePanel extends JPanel implements Runnable {
 //		grid.add(new ArcherTower(Grid.COLS / 2, Grid.ROWS / 2 + 2, grid));
 //		grid.add(new ArcherTower(Grid.COLS / 2, Grid.ROWS / 2 + 3, grid));
 		
-		grid.add(new ArcherTower(new Point(5, 5)));
+//		grid.add(new ArcherTower(new Point(5, 5)));
 		
 		final GameListener listener = new GameListener();
 		mainPanel.addKeyListener(listener);
