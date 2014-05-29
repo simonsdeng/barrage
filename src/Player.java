@@ -15,7 +15,6 @@ import javax.imageio.ImageIO;
  */
 public class Player extends Entity {
 
-	private int width, height;
 	private int speed;
 	private int health;
 	private int gold;
@@ -43,8 +42,7 @@ public class Player extends Entity {
 	public Player(Point2D.Double loc) {
 		super(loc);
 		activeDefense = 1;
-		width = 50;
-		height = 50;
+		r = 25;
 		gold = 100;
 		kills = 0;
 		speed = 7;
@@ -114,16 +112,19 @@ public class Player extends Entity {
 			dy /= Math.sqrt(2);
 		}
 		
-		loc.x += dx;
-		loc.y += dy;
+		double x = loc.x + dx;
+		double y = loc.y + dy;
 		
-		final int hw = width / 2;
-		final int hh = height / 2;
+		if (x < r) x = r;
+		if (y < r) y = r;
+		if (x + r > GamePanel.WIDTH) x = GamePanel.WIDTH - r;
+		if (y + r > GamePanel.HEIGHT) y = GamePanel.HEIGHT - r;
 		
-		if (loc.x < hh) loc.x = hw;
-		if (loc.y < hw) loc.y = hh;
-		if (loc.x + hw > GamePanel.WIDTH) loc.x = GamePanel.WIDTH - hw;
-		if (loc.y + hh > GamePanel.HEIGHT) loc.y = GamePanel.HEIGHT - hh;
+		final Point cell = Grid.getContainingCell(new Point2D.Double(x, y));
+		if (!grid.getStructureGrid()[cell.x][cell.y]) {
+			loc.x = x;
+			loc.y = y;
+		}
 	}
 	
 	public void castSpell(Spell s) {
@@ -143,8 +144,8 @@ public class Player extends Entity {
 	public void draw(Graphics2D g) {
 		final double ang = Math.atan2(-(pointer.y - loc.y), pointer.x - loc.x) - Math.PI / 2;
 		g.rotate(-ang, loc.x, loc.y);
-		g.drawImage(img, (int) (loc.x + 10 - width / 2), (int) (loc.y - 11 - height / 2),
-				width, height, null);
+		g.drawImage(img, (int) (loc.x + 10 - r), (int) (loc.y - 11 - r),
+				r * 2, r * 2, null);
 		g.rotate(ang, loc.x, loc.y);
 	}
 
