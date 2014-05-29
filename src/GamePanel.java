@@ -30,8 +30,6 @@ public class GamePanel extends JPanel implements Runnable {
 	private Grid grid;
 	private Player player;
 	
-	private boolean placingTower = false;
-	
 	private JPanel mainPanel;
 	
 	
@@ -100,6 +98,13 @@ public class GamePanel extends JPanel implements Runnable {
 		}
 	}
 	
+	public void placeDefense(Defense defense){
+		Point loc = defense.getGridLocation();
+		if(!grid.getEntityGrid()[loc.x][loc.y] && player.getGold() >= defense.getCost()) {
+			grid.add(defense);
+			player.setGold(player.getGold() - defense.getCost());
+		}
+	}
 	@Override
 	public void run() {
 		final long targetTime = 1000 / FPS;
@@ -120,10 +125,6 @@ public class GamePanel extends JPanel implements Runnable {
 				} catch (InterruptedException e) {}
 			}
 		}
-	}
-	
-	public void setPlacingTower(boolean placingTower){
-		this.placingTower = placingTower;
 	}
 	
 
@@ -177,10 +178,16 @@ public class GamePanel extends JPanel implements Runnable {
 		@Override
 		public void mousePressed(MouseEvent e) {
 			player.setPointer(e.getPoint());
-			if (!placingTower)
+			if (!player.isPlacingDefense())
 				player.castSpell(player.getSpell());
 			else {
-				
+				int defense = player.getActiveDefense();
+				Point2D.Double point = new Point2D.Double(player.getPointer().x, player.getPointer().y);
+				if (defense == DefensePanel.ARCHER_TOWER){
+					placeDefense(new ArcherTower(Grid.getContainingCell(point)));
+				} else if (defense == DefensePanel.QUAKE_TOWER){
+					placeDefense(new QuakeTower(Grid.getContainingCell(point)));
+				}
 			}
 		}
 		

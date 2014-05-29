@@ -16,6 +16,7 @@ public class ArcherTower extends Defense {
 
 	public ArcherTower(Point gridLoc) {
 		super(gridLoc);
+		setCost(50);
 	}
 
 	@Override

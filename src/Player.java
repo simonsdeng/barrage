@@ -21,6 +21,8 @@ public class Player extends Entity {
 	private int gold;
 	private int mana;
 	private boolean left, right, up, down;
+	private boolean placingDefense;
+	private int activeDefense;
 	private Point pointer;
 	private Image img;
 	private Spell[] spells = {new Fireblast(), new Iceblast(), new Teleport()};
@@ -38,12 +40,14 @@ public class Player extends Entity {
      */
 	public Player(Point2D.Double loc) {
 		super(loc);
+		activeDefense = 1;
 		width = 100;
 		height = 100;
 		gold = 100;
 		speed = 7;
 		lives = 3;
 		mana = 100;
+		placingDefense = false;
 		regenTime = 0;
 		regenDelayTime = 150;
 		pointer = new Point((int) loc.x, (int) loc.y);
@@ -69,6 +73,13 @@ public class Player extends Entity {
 	public int getLives() { return lives; }
 	public Spell getSpell() { return spell; }
 	public Spell[] getSpells() { return spells; }
+	public int getGold(){return gold;}
+	public void setGold(int amount){gold = amount;}
+	
+	public boolean isPlacingDefense(){return placingDefense;}
+	public void setPlacingDefense(boolean placingDefense){this.placingDefense = placingDefense;}
+	public void setActiveDefense(int defense){activeDefense = defense;}
+	public int getActiveDefense(){return activeDefense;}
 	
 	/**
 	 * Moves the player 

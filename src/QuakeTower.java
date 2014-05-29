@@ -16,6 +16,7 @@ public class QuakeTower extends Defense {
 	
 	public QuakeTower(Point gridLoc) {
 		super(gridLoc);
+		setCost(75);
 		projectiles = new ArrayList<Projectile>();
 	}
 	
