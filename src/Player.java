@@ -17,7 +17,7 @@ public class Player extends Entity {
 
 	private int width, height;
 	private int speed;
-	private int lives;
+	private int health;
 	private int gold;
 	private int mana;
 	private boolean left, right, up, down;
@@ -29,6 +29,7 @@ public class Player extends Entity {
 	private Spell spell;
 	
 	public static final int MANA_REGEN = 1;
+	public static final int HEALTH_REGEN = 2;
 	private long regenTime;
 	private int regenDelayTime;
 	
@@ -45,7 +46,7 @@ public class Player extends Entity {
 		height = 50;
 		gold = 100;
 		speed = 7;
-		lives = 3;
+		health = 100;
 		mana = 100;
 		placingDefense = false;
 		regenTime = 0;
@@ -70,7 +71,7 @@ public class Player extends Entity {
 	
 	public int getMana() { return mana; }
 	public Point getPointer() { return pointer; }
-	public int getLives() { return lives; }
+	public int getLives() { return health; }
 	public Spell getSpell() { return spell; }
 	public Spell[] getSpells() { return spells; }
 	public int getGold(){return gold;}
@@ -88,10 +89,14 @@ public class Player extends Entity {
 	public void act() {
 		//System.out.println(spell);
 		
-		if (mana < 100 && System.currentTimeMillis() - regenTime >= regenDelayTime) {
-			mana += MANA_REGEN;
+		if (System.currentTimeMillis() - regenTime >= regenDelayTime) {
+			if (mana < 100 - MANA_REGEN)
+				mana += MANA_REGEN;
+			if (health < 100 - HEALTH_REGEN)
+				health += HEALTH_REGEN;
 			regenTime = System.currentTimeMillis();
 		}
+
 		int dx = 0, dy = 0;
 		
 		if (left) dx -= speed;

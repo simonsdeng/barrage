@@ -1,13 +1,13 @@
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.Point;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.geom.Point2D;
 import java.util.List;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.EtchedBorder;
 
@@ -21,6 +21,8 @@ public class DefensePanel extends JPanel implements ActionListener{
 	public static final int ARCHER_TOWER = 1;
 	public static final int QUAKE_TOWER = 2;
 	
+	private JLabel[] labels;
+	
 	protected JButton b1, b2, b3;
 	
 	private String lastAction;
@@ -32,6 +34,20 @@ public class DefensePanel extends JPanel implements ActionListener{
 		archerTower = new ImageIcon(archerTower.getImage().getScaledInstance(80, 80,  java.awt.Image.SCALE_SMOOTH ));
 		ImageIcon quakeTower = new ImageIcon("quaketowericon.png");
 		quakeTower = new ImageIcon(quakeTower.getImage().getScaledInstance(80,80,  java.awt.Image.SCALE_SMOOTH ));
+		
+		labels = new JLabel[3];
+
+		labels[0] = new JLabel("Health: " + player.getLives());
+		labels[0].setForeground(Color.RED);
+		labels[1] = new JLabel("Mana: " + player.getMana());
+		labels[1].setForeground(Color.CYAN);
+		labels[2] = new JLabel("Gold: " + player.getGold());
+		labels[2].setForeground(Color.YELLOW);
+		
+		for (JLabel label: labels){
+			label.setFont(new Font("Serif", Font.PLAIN, 18));
+			add(label);
+		}
 	
 		
 		b1 = new JButton(archerTower);
@@ -61,6 +77,13 @@ public class DefensePanel extends JPanel implements ActionListener{
 
 		setPreferredSize(new Dimension(100, GamePanel.HEIGHT));
 		setBackground(Color.BLACK);
+	}
+	
+	public void updateLabels(){
+		
+		labels[0].setText("Health: " + player.getLives());
+		labels[1].setText("Mana: " + player.getMana());
+		labels[2].setText("Gold: " + player.getGold());
 	}
 
 	@Override

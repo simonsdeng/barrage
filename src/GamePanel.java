@@ -31,7 +31,7 @@ public class GamePanel extends JPanel implements Runnable {
 	private Grid grid;
 	private Player player;
 	
-	private JPanel mainPanel;
+	private MainPanel mainPanel;
 	
 	
 	/**
@@ -41,7 +41,7 @@ public class GamePanel extends JPanel implements Runnable {
 	 * @param height the width of the GamePanel
 	 * @param frame the parent JFrame
 	 */
-	public GamePanel(JPanel mainPanel, int width, int height, Player player) {
+	public GamePanel(MainPanel mainPanel, int width, int height, Player player) {
 		this.mainPanel = mainPanel;
 		setPreferredSize(new Dimension(width, height));
 		setBackground(new Color(238, 238, 238));
@@ -81,6 +81,7 @@ public class GamePanel extends JPanel implements Runnable {
 		}
 		
 		grid.updateEntities();
+		mainPanel.updatePanels();
 	}
 	
 	private void spawnEnemy() {
