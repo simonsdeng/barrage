@@ -48,8 +48,6 @@ public class GamePanel extends JPanel implements Runnable {
 		this.player = player;
 	}
 	
-	
-	
 //	public Player getPlayer() { return player; }
 	
 	protected void start() {
@@ -75,12 +73,31 @@ public class GamePanel extends JPanel implements Runnable {
 	}
 	
 	private void update() {
+		if (Math.random() < .05) spawnEnemy();
+		
 		for (Entity e : grid.getEntities()) {
 			e.act();
 			for (Projectile p : e.getProjectiles()) p.act(); 
 		}
 		
 		grid.updateEntities();
+	}
+	
+	private void spawnEnemy() {
+		switch ((int) (Math.random() * 4)) {
+		case 1:
+			grid.add(new Enemy(new Point2D.Double((int) (Math.random() * getWidth()), 0), 0));
+			break;
+		case 2:
+			grid.add(new Enemy(new Point2D.Double((int) (Math.random() * getWidth()), getHeight()), 0));
+			break;
+		case 3:
+			grid.add(new Enemy(new Point2D.Double(0, (int) (Math.random() * getHeight())), 0));
+			break;
+		case 4:
+			grid.add(new Enemy(new Point2D.Double(getHeight(), (int) (Math.random() * getWidth())), 0));
+			break;
+		}
 	}
 	
 	@Override
@@ -110,6 +127,7 @@ public class GamePanel extends JPanel implements Runnable {
 			player.setGold(player.getGold() - defense.getCost());
 		}
 	}
+	
 	@Override
 	public void run() {
 		final long targetTime = 1000 / FPS;
@@ -132,7 +150,6 @@ public class GamePanel extends JPanel implements Runnable {
 		}
 	}
 	
-
 	protected void stop() {
 		running = false;
 	}
