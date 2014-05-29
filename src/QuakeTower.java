@@ -12,7 +12,7 @@ public class QuakeTower extends Defense {
 	
 	private static long time = 0;
 	private static int delayTime = 300;
-	public static final int damage = 25;
+	public static final int damage = 50;
 	
 	public QuakeTower(Point gridLoc) {
 		super(gridLoc);

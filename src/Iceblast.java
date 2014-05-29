@@ -20,7 +20,7 @@ public class Iceblast implements Spell {
 		cost = 10;
 		time = 0;
 		delayTime = 300;
-		freezeDelayTime = 1000;
+		freezeDelayTime = 2000;
 	}
 	
 	public int getCost() { return cost; }

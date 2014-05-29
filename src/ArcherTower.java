@@ -40,19 +40,27 @@ public class ArcherTower extends Defense {
 	
 	private class Arrow extends Projectile {
 		private ArcherTower tower;
+		private int damage;
 		
 		public Arrow(Point2D.Double loc, int height, int width, double direction,Grid grid, ArcherTower tower) {
 			super(loc, height, width, direction, tower, projectileImage);
 			r = width/2;
 			velocity = 5;
+			damage = 25;
 			this.tower = tower;
 		}
 		
 		@Override
 		public void act() {
 			super.act();
-			if (!isOnScreen()) tower.removeProjectile(this);
-			if (collision() != null) tower.removeProjectile(this);
+		if (!isOnScreen()) tower.removeProjectile(this);
+			
+			Enemy e = collision();
+	
+			if (e != null) {
+				tower.removeProjectile(this);
+				e.setHealth(e.getHealth() - damage);
+			}
 		}
 	}
 

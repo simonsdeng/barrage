@@ -53,6 +53,7 @@ public class Fireblast implements Spell {
 			if (!isOnScreen()) player.removeProjectile(this);
 			
 			Enemy e = collision();
+	
 			if (e != null) {
 				player.removeProjectile(this);
 				e.setHealth(e.getHealth() - damage);
