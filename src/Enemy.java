@@ -1,3 +1,4 @@
+import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.geom.Point2D;
@@ -16,6 +17,9 @@ public class Enemy extends Entity {
 	private Entity target;
 	private Grid.Path path;
 	private Point waypoint;
+	
+	public static final int MAX_HEALTH = 50;
+	private Color color;
 
 	public Enemy(Point2D.Double loc, int reward) {
 		super(loc);
@@ -24,9 +28,10 @@ public class Enemy extends Entity {
 		frozen = false;
 		freezeTime = 0;
 		freezeDelayTime = 0;
-		health = 100;
+		health = MAX_HEALTH;
 		r = 20;
 		speed = 1;
+		color = Color.BLACK;
 	}
 	
 	@Override
@@ -47,12 +52,23 @@ public class Enemy extends Entity {
 	
 	@Override
 	public void draw(Graphics2D g) {
+		updateColor();
+		g.setColor(color);
 		g.fillOval((int) (loc.x - r), (int) (loc.y - r), 2 * r, 2 * r);
+	}
+	
+	private void updateColor(){
+		double percentage = 1 - health/(double)MAX_HEALTH;
+		if (percentage > 1) percentage = 1;
+		int value = (int)(percentage* 255);
+		color = new Color(value, value, value);
 	}
 	
 	@Override
 	public void act() {
-		if (health <= 0) alive = false;
+		if (health <= 0){
+			grid.remove(this);
+		}
 		
 		if (frozen) {
 			if (System.currentTimeMillis() - freezeTime >= freezeDelayTime) {
