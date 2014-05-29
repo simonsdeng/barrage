@@ -46,7 +46,7 @@ public class ArcherTower extends Defense {
 			super(loc, height, width, direction, tower, projectileImage);
 			r = width/2;
 			velocity = 5;
-			damage = 25;
+			damage = 10;
 			this.tower = tower;
 		}
 		

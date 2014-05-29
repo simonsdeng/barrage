@@ -38,7 +38,7 @@ public class Iceblast implements Spell {
 			Point2D.Double loc = player.getLocation();
 			double ang = Math.atan2(-(p.y - loc.y), p.x - loc.x)  - Math.PI / 2;
 			double cos = Math.cos(ang), sin = Math.sin(ang);
-			double dx = 5*cos - 70*sin, dy =- 70*cos - 5*sin;
+			double dx = 5*cos - 35*sin, dy =- 35*cos - 5*sin;
 			player.addProjectile(new IceblastProjectile(new Point2D.Double(loc.x + dx,
 					loc.y + dy), 20, 20, -(Math.PI / 2 + ang)));
 

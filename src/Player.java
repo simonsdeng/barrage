@@ -41,8 +41,8 @@ public class Player extends Entity {
 	public Player(Point2D.Double loc) {
 		super(loc);
 		activeDefense = 1;
-		width = 100;
-		height = 100;
+		width = 50;
+		height = 50;
 		gold = 100;
 		speed = 7;
 		lives = 3;
@@ -133,7 +133,7 @@ public class Player extends Entity {
 	public void draw(Graphics2D g) {
 		final double ang = Math.atan2(-(pointer.y - loc.y), pointer.x - loc.x) - Math.PI / 2;
 		g.rotate(-ang, loc.x, loc.y);
-		g.drawImage(img, (int) (loc.x + 19 - width / 2), (int) (loc.y - 22 - height / 2),
+		g.drawImage(img, (int) (loc.x + 10 - width / 2), (int) (loc.y - 11 - height / 2),
 				width, height, null);
 		g.rotate(ang, loc.x, loc.y);
 	}

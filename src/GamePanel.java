@@ -9,6 +9,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.awt.geom.Point2D;
+import java.util.ArrayList;
 
 import javax.swing.JPanel;
 
@@ -54,7 +55,7 @@ public class GamePanel extends JPanel implements Runnable {
 	protected void start() {
 		final Nexus nexus = new Nexus(new Point(Grid.COLS / 2, Grid.ROWS / 2));
 		grid = new Grid(player, nexus);
-		grid.add(new Enemy(new Point2D.Double(100, 100), 10));
+		grid.add(new Enemy(new Point2D.Double(100, 100), 50));
 		
 //		grid.add(new ArcherTower(Grid.COLS / 2, Grid.ROWS / 2 - 3, grid));
 //		grid.add(new ArcherTower(Grid.COLS / 2, Grid.ROWS / 2 - 2, grid));
@@ -91,9 +92,13 @@ public class GamePanel extends JPanel implements Runnable {
 			g2d.setColor(Color.RED);
 			g2d.drawString("MANA: " + player.getMana(), 20, 20);
 			g2d.setColor(Color.BLACK);
+			ArrayList<Projectile> projList = new ArrayList<Projectile>();
 			for (Entity e : grid.getEntities()) {
+				for (Projectile p : e.getProjectiles()) projList.add(p);
 				e.draw(g2d);
-				for (Projectile p : e.getProjectiles()) p.draw(g2d);
+			}
+			for (Projectile p: projList){
+				p.draw(g2d);
 			}
 		}
 	}

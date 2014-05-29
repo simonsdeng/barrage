@@ -9,7 +9,7 @@ public class Teleport implements Spell {
 	private Player player;
 	
 	public Teleport() {
-		cost = 10;
+		cost = 50;
 		time = 0;
 		delayTime = 300;
 	}
