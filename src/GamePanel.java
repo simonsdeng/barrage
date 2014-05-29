@@ -51,9 +51,8 @@ public class GamePanel extends JPanel implements Runnable {
 //	public Player getPlayer() { return player; }
 	
 	protected void start() {
-		final Nexus nexus = new Nexus(new Point(Grid.COLS / 2-1, Grid.ROWS / 2-1));
+		final Nexus nexus = new Nexus(new Point(Grid.COLS / 2, Grid.ROWS / 2));
 		grid = new Grid(player, nexus);
-		grid.add(new Enemy(new Point2D.Double(100, 100), 50));
 		
 //		grid.add(new ArcherTower(Grid.COLS / 2, Grid.ROWS / 2 - 3, grid));
 //		grid.add(new ArcherTower(Grid.COLS / 2, Grid.ROWS / 2 - 2, grid));
@@ -87,16 +86,16 @@ public class GamePanel extends JPanel implements Runnable {
 	private void spawnEnemy() {
 		switch ((int) (Math.random() * 4)) {
 		case 1:
-			grid.add(new Enemy(new Point2D.Double((int) (Math.random() * getWidth()), 0), 0));
+			grid.add(new Enemy(new Point2D.Double((int) (Math.random() * getWidth()), 0), 10));
 			break;
 		case 2:
-			grid.add(new Enemy(new Point2D.Double((int) (Math.random() * getWidth()), getHeight()), 0));
+			grid.add(new Enemy(new Point2D.Double((int) (Math.random() * getWidth()), getHeight()), 10));
 			break;
 		case 3:
-			grid.add(new Enemy(new Point2D.Double(0, (int) (Math.random() * getHeight())), 0));
+			grid.add(new Enemy(new Point2D.Double(0, (int) (Math.random() * getHeight())), 10));
 			break;
 		case 4:
-			grid.add(new Enemy(new Point2D.Double(getHeight(), (int) (Math.random() * getWidth())), 0));
+			grid.add(new Enemy(new Point2D.Double(getHeight(), (int) (Math.random() * getWidth())), 10));
 			break;
 		}
 	}
@@ -107,8 +106,6 @@ public class GamePanel extends JPanel implements Runnable {
 		final Graphics2D g2d = (Graphics2D) g;
 		
 		if (running) {
-			g2d.setColor(Color.RED);
-			g2d.drawString("MANA: " + player.getMana(), 20, 20);
 			g2d.setColor(Color.BLACK);
 			ArrayList<Projectile> projList = new ArrayList<Projectile>();
 			for (Entity e : grid.getEntities()) {
