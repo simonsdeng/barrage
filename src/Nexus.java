@@ -29,9 +29,7 @@ public class Nexus extends Structure {
 
 	@Override
 	public void act() {
-		if (health <= 0){
-			System.out.println("You lose!");
-		}
+		
 	}
 
 	public int getHealth() {

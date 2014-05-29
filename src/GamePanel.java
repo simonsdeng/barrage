@@ -79,6 +79,11 @@ public class GamePanel extends JPanel implements Runnable {
 			for (Projectile p : e.getProjectiles()) p.act(); 
 		}
 		
+		if (grid.getPlayer().getHealth() <= 0 || grid.getNexus().getHealth() <= 0) {
+			System.out.println("You lose!");
+			stop();
+		}
+		
 		grid.updateEntities();
 		mainPanel.updatePanels();
 	}
@@ -105,7 +110,7 @@ public class GamePanel extends JPanel implements Runnable {
 		super.paintComponent(g);
 		final Graphics2D g2d = (Graphics2D) g;
 		
-		if (running) {
+		if (grid != null) {
 			g2d.setColor(Color.BLACK);
 			ArrayList<Projectile> projList = new ArrayList<Projectile>();
 			for (Entity e : grid.getEntities()) {
