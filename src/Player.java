@@ -16,7 +16,6 @@ import javax.imageio.ImageIO;
 public class Player extends Entity {
 
 	private int speed;
-	private int health;
 	private int gold;
 	private int mana;
 	private boolean left, right, up, down;
@@ -132,8 +131,6 @@ public class Player extends Entity {
 			s.cast(this);
 		}
 	}
-	
-	
 	
 	/**
 	 * Draws the player

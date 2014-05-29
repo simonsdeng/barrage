@@ -6,7 +6,6 @@ import java.awt.geom.Point2D;
 public class Enemy extends Entity {
 
 	private double speed;
-	private int health;
 	private int reward;
 	private boolean alive;
 	private boolean frozen;
@@ -110,14 +109,6 @@ public class Enemy extends Entity {
 	
 	public int getReward() {
 		return reward;
-	}
-	
-	public int getHealth() {
-		return health;
-	}
-	
-	public void setHealth(int health) {
-		this.health = health;
 	}
 	
 	public void setFreezeTime(int freezeDelayTime) {

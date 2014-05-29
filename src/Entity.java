@@ -8,6 +8,7 @@ public abstract class Entity {
 	protected Point2D.Double loc;
 	protected List<Projectile> projectiles;
 	protected Grid grid;
+	protected int health;
 	protected int r;
 	
 	protected Entity(Point2D.Double loc) {
@@ -33,6 +34,14 @@ public abstract class Entity {
 	
 	public void setGrid(Grid grid) {
 		this.grid = grid;
+	}
+	
+	public int getHealth() {
+		return health;
+	}
+	
+	public void setHealth(int health) {
+		this.health = health;
 	}
 	
 	public void addProjectile(Projectile p) {

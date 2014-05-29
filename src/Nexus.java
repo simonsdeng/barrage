@@ -4,7 +4,6 @@ import java.awt.Point;
 
 public class Nexus extends Structure {
 	
-	private int health;
 	private Color color;
 
 	public Nexus(Point gridLoc) {
