@@ -40,9 +40,13 @@ public class Enemy extends Entity {
 	}
 	
 	private void chooseTarget() {
-		target = player.getLocation().distance(loc) < nexus.getLocation().distance(loc)
+		final Entity newTarget = player.getLocation().distance(loc) < nexus.getLocation().distance(loc) + 100
 				? player : nexus;
-		path = grid.getPath(this, target);
+		if (newTarget != target) {
+			target = newTarget;
+			if (path != null) path.dispose();
+			path = grid.getPath(this, target);
+		}
 	}
 	
 	@Override
