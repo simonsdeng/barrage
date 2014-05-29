@@ -1,6 +1,5 @@
 import java.awt.Point;
 import java.awt.geom.Point2D;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
@@ -152,16 +151,13 @@ public class Grid {
 	}
 	
 	public Path getPath(Entity e, Entity target) {
-		return getPath(getContainingCell(e), getContainingCell(target));
+		return new Path(e, target);
 	}
 	
-	public Path getPath(Point from, Point to) {
-		final Path path = new Path(getPathList(from, to));
-		activePaths.add(path);
-		return path;
-	}
-	
-	private LinkedList<Point> getPathList(Point from, Point to) {
+	private LinkedList<Point> getPathList(Entity e, Entity target) {
+		final Point from = getContainingCell(e);
+		final Point to = getContainingCell(target);
+		
 		final double[][] cost = new double[COLS][ROWS];
 		final double[][] estimate = new double[COLS][ROWS];
 		for (double[] r : cost) Arrays.fill(r, Integer.MAX_VALUE);
@@ -186,8 +182,11 @@ public class Grid {
 			
 			for (int x = Math.max(0, p.x - 1), xMax = Math.min(p.x + 2, COLS); x < xMax; x++) {
 				for (int y = Math.max(0, p.y - 1), yMax = Math.min(p.y + 2, ROWS); y < yMax; y++) {
-					if (x == p.x && y == p.y
-							|| structureGrid[x][y] && (x != to.x || y != to.y)) continue;
+					if (x == p.x && y == p.y) continue;
+					if (structureGrid[x][y] && (x != to.x || y != to.y)) continue;
+					
+					// prevent diagonal turns around obstacles
+					if (x != p.x && y != p.y && (structureGrid[x][p.y] || structureGrid[p.x][y])) continue;
 					
 					final Point next = new Point(x, y);
 					final double tmpCost = cost[p.x][p.y] + p.distance(next);
@@ -215,27 +214,36 @@ public class Grid {
 	}
 	
 	public class Path {
+		private Entity entity;
+		private Entity target;
 		private LinkedList<Point> path;
 		private Point current;
 		
-		public Path(LinkedList<Point> path) {
-			this.path = path;
+		public Path(Entity entity, Entity target) {
+			this.entity = entity;
+			this.target = target;
+			path = getPathList(entity, target);
 			current = path.getFirst();
+			activePaths.add(this);
+		}
+		
+		public void dispose() {
+			activePaths.remove(this);
 		}
 		
 		protected void updatePath() {
-			if (!path.isEmpty()) path = getPathList(current, path.getLast());
+			if (path.isEmpty()) return;
+			
+			if (!Grid.getContainingCell(entity).equals(current)
+					|| !Grid.getContainingCell(target).equals(path.getLast())) {
+				path = getPathList(entity, target);
+			}
 		}
 		
 		public Point getNext() {
-			current = path.remove();
-			
-			if (path.isEmpty()) {
-				activePaths.remove(this);
-				return null;
-			}
-			
-			return path.remove();
+			current = path.getFirst();
+			if (path.size() > 1) path.remove();
+			return path.getFirst();
 		}
 	}
 
