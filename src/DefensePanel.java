@@ -110,7 +110,7 @@ public class DefensePanel extends JPanel implements ActionListener{
 			b2.setBorderPainted(false);
 			lastAction = action;
 			player.setActiveDefense(ARCHER_TOWER);
-			costLabel.setText("Cost " + ArcherTower.COST);
+			costLabel.setText("Cost: " + ArcherTower.COST);
 
 			player.setPlacingDefense(true);
 		}
@@ -119,7 +119,7 @@ public class DefensePanel extends JPanel implements ActionListener{
 			b2.setBorderPainted(true);
 			lastAction = action;
 			player.setActiveDefense(QUAKE_TOWER);
-			costLabel.setText("Cost " + QuakeTower.COST);
+			costLabel.setText("Cost: " + QuakeTower.COST);
 			player.setPlacingDefense(true);
 		}
 

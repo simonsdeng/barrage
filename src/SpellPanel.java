@@ -1,10 +1,12 @@
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.EtchedBorder;
 
@@ -12,6 +14,8 @@ public class SpellPanel extends JPanel implements ActionListener {
 	
 	protected JButton b1, b2, b3;
 	private Player player;
+	
+	private JLabel costLabel;
 	
 	public SpellPanel(Player player) {
 		this.player = player;
@@ -51,6 +55,11 @@ public class SpellPanel extends JPanel implements ActionListener {
 		add(b2);
 		add(b3);
 		
+		costLabel = new JLabel("Cost: Free");
+		costLabel.setFont(new Font("Serif", Font.PLAIN, 18));
+		costLabel.setForeground(Color.WHITE);
+		add(costLabel);
+		
 		setPreferredSize(new Dimension(GamePanel.WIDTH, 60));
 		setBackground(Color.BLACK);
 	}
@@ -62,19 +71,21 @@ public class SpellPanel extends JPanel implements ActionListener {
 			b1.setBorderPainted(true);
 			b2.setBorderPainted(false);
 			b3.setBorderPainted(false);
-			player.setSpell(player.getSpells()[0]);
+			costLabel.setText("Cost: " + "Free");
 		}
 		else if("Iceblast".equals(e.getActionCommand())) {
 			b1.setBorderPainted(false);
 			b2.setBorderPainted(true);
 			b3.setBorderPainted(false);
-			player.setSpell(player.getSpells()[1]);		
+			player.setSpell(player.getSpells()[1]);	
+			costLabel.setText("Cost: " + player.getSpells()[1].getCost());
 		}
 		else {
 			b1.setBorderPainted(false);
 			b2.setBorderPainted(false);
 			b3.setBorderPainted(true);
 			player.setSpell(player.getSpells()[2]);
+			costLabel.setText("Cost: " + player.getSpells()[2].getCost());
 		}
 	}
 
